@@ -34,7 +34,7 @@ class WeatherAIDLServices: Service() {
                 return
             }
 
-            serviceScope.launch {
+            serviceScope.launch(Dispatchers.IO) {
                 DataAnalysisManager.pauseData(data)
                 val result = DataAnalysisManager.requestShowInfo()
                 try {
@@ -46,5 +46,13 @@ class WeatherAIDLServices: Service() {
         }
     }
 
-    override fun onBind(intent: Intent?): IBinder = binder
+    override fun onCreate() {
+        super.onCreate()
+        Log.d(TAG, "onCreate")
+    }
+
+    override fun onBind(intent: Intent?): IBinder {
+        Log.d(TAG, "onBind action=${intent?.action}")
+        return binder
+    }
 }

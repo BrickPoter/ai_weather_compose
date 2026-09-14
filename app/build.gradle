@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'com.mosi.mosc.launcher.ai_weather'
+    namespace 'com.mosi.mosc.ai_weather'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.mosi.mosc.launcher.ai_weather"
+        applicationId "com.mosi.mosc.ai_weather"
         minSdk 24
         targetSdk 34
         versionCode 1
@@ -38,9 +38,11 @@ android {
 }
 
 dependencies {
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compileOnly fileTree(dir: 'libs', include: ['*.aar','*.jar'])
+    implementation libs.androidx.activity.ktx
+    implementation libs.androidx.constraintlayout
+    compileOnly fileTree(dir: 'libs', include: ['*.aar', '*.jar'])
 
+    implementation libs.retrofit.gson.converter
     implementation libs.kotlinx.coroutines.core
     implementation libs.kotlinx.coroutines.android
 

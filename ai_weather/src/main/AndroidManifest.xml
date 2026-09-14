@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <queries>
+        <package android:name="com.mosi.mosc.ai_weather" />
+    </queries>
     <application>
         <meta-data
-            android:name="WeatherBusinessPlugin"
-            android:value="com.mosi.mosc.launcher.ai_weather.WeatherBusinessPlugin" />
+            android:name="WeatherCardPlugin"
+            android:value="com.mosi.mosc.launcher.ai_weather.WeatherCardPlugin" />
     </application>
 </manifest>

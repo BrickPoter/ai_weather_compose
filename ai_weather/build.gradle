@@ -22,13 +22,15 @@ android {
 
     buildFeatures {
         aidl = true  // ✅ 确保启用 AIDL
+        viewBinding = true
     }
 }
 
 dependencies {
-    compileOnly fileTree(dir: 'libs', include: ['*.aar','*.jar'])
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation libs.cronet
+    compileOnly fileTree(dir: 'libs', include: ['*.aar', '*.jar'])
 
+    implementation libs.glide
     implementation libs.androidx.appcompat
     implementation libs.androidx.core.ktx
     implementation libs.material

@@ -8,16 +8,21 @@
         android:fullBackupContent="@xml/backup_rules"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AI_weather" >
-        <service android:name="com.mosi.mosc.ai_weather.WeatherAIDLServices"
-            android:exported="true"
-            android:enabled="true">
+        android:theme="@style/Theme.AI_weather">
+        <service
+            android:name="com.mosi.mosc.ai_weather.WeatherAIDLServices"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.mosi.mosc.ai_weather.APP_AIDL_SERVICE" />
-                <category android:name="com.mosi.mosc.ai_aidl_weather"/>
             </intent-filter>
         </service>
 
+        <receiver android:name=".WakeUpReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="com.mosi.mosc.ai_weather.WAKE_UP" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

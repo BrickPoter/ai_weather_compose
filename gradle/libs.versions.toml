@@ -1,5 +1,5 @@
 [versions]
-kotlin = "1.8.20"
+kotlin = "2.2.0"
 agp = "8.0.0"
 coreKtx = "1.10.1"
 junit = "4.13.2"
@@ -8,6 +8,9 @@ espressoCore = "3.5.1"
 appcompat = "1.6.1"
 material = "1.10.0"
 kotlinx-coroutines = "1.7.3"
+activityKtx = "1.8.0"
+constraintlayout = "2.1.4"
+cronet = "500.0.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -22,6 +25,16 @@ lifecycle-runtime-ktx = {group = "androidx.lifecycle", name = "lifecycle-runtime
 lifecycle-viewmodel-ktx = {group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version = "2.5.1" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
+glide = {group = "com.github.bumptech.glide", name = "glide", version = "4.12.0" }
+glide-compiler = {group = "com.github.bumptech.glide", name = "compiler", version = "4.12.0" }
+retrofit = {group = "com.squareup.retrofit2", name = "retrofit", version = "2.9.0" }
+retrofit-gson-converter = {group = "com.squareup.retrofit2", name = "converter-gson", version = "2.3.0" }
+androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activityKtx" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+cronet = { group = "org.chromium.net", name = "cronet", version.ref = "cronet" }
+
+
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

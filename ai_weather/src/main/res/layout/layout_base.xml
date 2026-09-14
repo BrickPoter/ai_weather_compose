@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/base_layout"
     android:layout_height="wrap_content">
 
     <ImageView
@@ -16,6 +17,8 @@
         android:id="@+id/text_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/image_nav"
         app:layout_constraintStart_toEndOf="@+id/image_nav"
         app:layout_constraintTop_toTopOf="@+id/image_nav"
@@ -25,6 +28,8 @@
         android:id="@+id/text_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#80000000"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/image_nav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/image_nav"
@@ -44,6 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:textSize="34sp"
+        android:textColor="#80000000"
         app:layout_constraintStart_toStartOf="@+id/image_nav"
         app:layout_constraintTop_toBottomOf="@+id/image_nav"
         tools:text="24°" />
@@ -54,6 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:textSize="32sp"
+        android:textColor="#80000000"
         app:layout_constraintBottom_toBottomOf="@+id/text_height_temp"
         app:layout_constraintStart_toEndOf="@+id/text_height_temp"
         app:layout_constraintTop_toTopOf="@+id/text_height_temp"
@@ -63,11 +70,14 @@
         android:id="@+id/text_temp_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#80000000"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/text_height_temp"
         app:layout_constraintTop_toBottomOf="@+id/text_height_temp"
         tools:text="多云转雷阵雨" />
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/layout_future"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

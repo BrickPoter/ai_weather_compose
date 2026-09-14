@@ -7,14 +7,18 @@
     android:layout_height="match_parent"
     android:background="@drawable/drawable_card_big_bg">
     <include
+        android:id="@+id/layout_base"
         layout="@layout/layout_base"/>
     <include
+        android:visibility="gone"
         android:id="@+id/layout_alert"
         layout="@layout/layout_alert"/>
     <include
+        android:visibility="gone"
         android:id="@+id/layout_choose"
         layout="@layout/layout_choose"/>
     <View
+        android:visibility="gone"
         android:id="@+id/view_space"
         android:layout_width="match_parent"
         android:layout_height="5dp"
