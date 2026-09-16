@@ -23,6 +23,7 @@ import com.fawvw.hmi.ailauncher.pluginlib.TargetScreen
 import com.fawvw.hmi.ailauncher.pluginlib.TriggerSource
 import com.fawvw.hmi.ailauncher.pluginlib.VisibleState
 import com.mosi.mosc.ai_weather.been.CardBaseInfo
+import com.mosi.mosc.ai_weather.been.CardUIData
 import com.mosi.mosc.ai_weather.been.IAIDLWeatherCallback
 import com.mosi.mosc.ai_weather.been.IAIDLWeatherService
 
@@ -54,6 +55,10 @@ class WeatherCardPlugin : ICardPlugin, CreateViewFactory.CreateViewListener {
                 reason = "显示",
                 priority = CardPriority.MEDIUM
             ))
+        }
+
+        override fun onCardUIDateResult(cardUIData: CardUIData?) {
+            TODO("Not yet implemented")
         }
     } }
 
