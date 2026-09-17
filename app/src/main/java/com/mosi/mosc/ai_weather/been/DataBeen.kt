@@ -16,7 +16,7 @@ data class DataBeen(
     //
     val liveIndex: List<LiveIndexBeen>,
     //警报信息
-    val alert: List<ConditionBeen>,
+    val alert: List<AlertBeen>,
     val currentLimit: LimitBeen,
     val todayWeather: String?,
     val aqiForecastResponse: List<AqiForecastResponseBeen>,

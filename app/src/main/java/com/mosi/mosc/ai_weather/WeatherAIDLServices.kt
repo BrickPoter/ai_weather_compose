@@ -10,7 +10,10 @@ import com.mosi.mosc.ai_weather.been.IAIDLWeatherService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import com.mosi.mosc.ai_weather.been.CardUIData
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.ensureActive
 
 //进行服务拉起
 class WeatherAIDLServices: Service() {
@@ -34,11 +37,15 @@ class WeatherAIDLServices: Service() {
                 return
             }
 
-            serviceScope.launch(Dispatchers.IO) {
-                DataAnalysisManager.pauseData(data)
-                val result = DataAnalysisManager.requestShowInfo()
+            serviceScope.launch {
+
+                val result = DataAnalysisManager.parseData(data,resources)
+                ensureActive()
                 try {
-                    callback.onCardBaseInfoResilt(result["baseInfo"] as? CardBaseInfo)
+                    (result[DataAnalysisResultKey.CARD_UI_DATA] as? CardUIData)?.let{
+                        callback.onCardUIDateResult(it)
+                    }
+//                    callback.onCardBaseInfoResilt(result["baseInfo"] as? CardBaseInfo)
                 }catch (e: Exception){
                     Log.e(TAG, "Callback baseInfo is error")
                 }
@@ -49,6 +56,11 @@ class WeatherAIDLServices: Service() {
     override fun onCreate() {
         super.onCreate()
         Log.d(TAG, "onCreate")
+    }
+
+    override fun onDestroy(){
+        serviceScope.cancel()
+        super.onDestroy()
     }
 
     override fun onBind(intent: Intent?): IBinder {

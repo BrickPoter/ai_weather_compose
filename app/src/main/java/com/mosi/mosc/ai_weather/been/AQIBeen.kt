@@ -6,6 +6,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class AQIBeen(
     val updateTime: Long,
+    val co : String?,
     val no2: String,
     val o3: String,
     val pm10: String,

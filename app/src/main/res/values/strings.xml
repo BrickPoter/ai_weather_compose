@@ -1,3 +1,35 @@
 <resources>
     <string name="app_name">AI_weather</string>
+    <string name="weather_object_title_weather_condition">天气现象</string>
+    <string name="weather_object_title_temperature">温度</string>
+    <string name="weather_object_title_apparent_temperature">体感温度</string>
+    <string name="weather_object_title_precipitation_probability">降水概率</string>
+    <string name="weather_object_title_precipitation_amount">降水量</string>
+    <string name="weather_object_title_snowfall_amount">降雪量</string>
+    <string name="weather_object_title_humidity">湿度</string>
+    <string name="weather_object_title_pressure">气压</string>
+    <string name="weather_object_title_wind">风力风向</string>
+    <string name="weather_object_title_visibility">能见度</string>
+    <string name="weather_object_title_ultraviolet">紫外线</string>
+    <string name="weather_object_title_sunrise_sunset">日出日落</string>
+    <string name="weather_object_title_moon_phase">月相</string>
+    <string name="weather_object_title_air_quality">空气质量</string>
+    <string name="weather_object_title_carbon_monoxide">一氧化碳</string>
+    <string name="weather_object_title_nitrogen_dioxide">二氧化氮</string>
+    <string name="weather_object_title_ozone">臭氧</string>
+    <string name="weather_object_title_pm10">PM10</string>
+    <string name="weather_object_title_pm2_5">PM2.5</string>
+    <string name="weather_object_title_sulfur_dioxide">二氧化硫</string>
+    <string name="weather_object_title_air_quality_forecast">空气质量预报</string>
+    <string name="weather_object_title_allergy_index">过敏指数</string>
+    <string name="weather_object_title_cold_risk_index">感冒风险指数</string>
+    <string name="weather_object_title_exercise_index">运动指数</string>
+    <string name="weather_object_title_makeup_index">化妆指数</string>
+    <string name="weather_object_title_clothing_index">穿衣指数</string>
+    <string name="weather_object_title_fishing_index">钓鱼指数</string>
+    <string name="weather_object_title_traffic_index">交通指数</string>
+    <string name="weather_object_title_travel_index">旅游指数</string>
+    <string name="weather_object_title_car_wash_index">洗车指数</string>
+    <string name="weather_object_title_air_pollution_dispersion">空气污染扩散条件</string>
+    <string name="weather_object_title_traffic_restriction">交通限行</string>
 </resources>
