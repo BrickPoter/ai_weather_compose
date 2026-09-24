@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="650dp"
+    android:layout_height="105dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:text="日出"
+        android:id="@+id/item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Content_1_Regular"
+        android:minWidth="60dp"
+        android:textColor="@color/text_content_transparent_80"
+        android:alpha="0.8"/>
+
+    <TextView
+        android:text="06:00"
+        android:id="@+id/item_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Content_4_Regular"
+        android:layout_marginTop="7dp"
+        android:minWidth="80dp"
+        android:textColor="@color/text_content_transparent_90"/>
+
+</LinearLayout>

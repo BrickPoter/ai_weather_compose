@@ -22,7 +22,6 @@ import com.fawvw.hmi.ailauncher.pluginlib.ICardPlugin
 import com.fawvw.hmi.ailauncher.pluginlib.TargetScreen
 import com.fawvw.hmi.ailauncher.pluginlib.TriggerSource
 import com.fawvw.hmi.ailauncher.pluginlib.VisibleState
-import com.mosi.mosc.ai_weather.been.CardBaseInfo
 import com.mosi.mosc.ai_weather.been.CardUIData
 import com.mosi.mosc.ai_weather.been.IAIDLWeatherCallback
 import com.mosi.mosc.ai_weather.been.IAIDLWeatherService
@@ -39,26 +38,31 @@ class WeatherCardPlugin : ICardPlugin, CreateViewFactory.CreateViewListener {
 
     private var weatherService : IAIDLWeatherService? = null
 
-    private val callAIDLBack: IAIDLWeatherCallback by lazy { object : IAIDLWeatherCallback.Stub() {
-        override fun onCardBaseInfoResilt(result: CardBaseInfo?) {
-            Log.d(TAG,"onCardBaseInfoResilt is running result = $result")
-            //返回解析的基础数据
-            CreateViewFactory.showBaseCard(result,mContent)
+    private var cardVisibility = false
 
-            mCardManager?.requestShow(BusinessType.WEATHER, CardRequestInfo(cardId = KEY_CARD_ID,
-                category = "weather",
-                contentSummary ="卡片正文",
-                cardSize = CardSize.ONE_EIGHT,
-                supportedSizes = listOf(CardSize.ONE_FOUR, CardSize.ONE_EIGHT),
-                source = TriggerSource.RECOMMEND,
-                targetScreen = TargetScreen.DRIVER_SCREEN,
-                reason = "显示",
-                priority = CardPriority.MEDIUM
-            ))
-        }
+    private val callAIDLBack: IAIDLWeatherCallback by lazy { object : IAIDLWeatherCallback.Stub() {
 
         override fun onCardUIDateResult(cardUIData: CardUIData?) {
-            TODO("Not yet implemented")
+            Log.d(TAG,"CardUIDate paras result = $cardUIData")
+            //返回解析的基础数据
+            CreateViewFactory.showOrdinaryCard(cardUIData,mContent)
+
+            if (cardVisibility){
+                //mCardManager?.getCardVisibleState()
+                CreateViewFactory.refreshView()
+            }else{
+                mCardManager?.requestShow(BusinessType.WEATHER, CardRequestInfo(cardId = KEY_CARD_ID,
+                    category = "weather",
+                    contentSummary ="卡片正文",
+                    cardSize = CreateViewFactory.getCardSize(),
+                    supportedSizes = listOf(CardSize.ONE_FOUR, CardSize.ONE_EIGHT),
+                    source = TriggerSource.RECOMMEND,
+                    targetScreen = TargetScreen.DRIVER_SCREEN,
+                    reason = "显示",
+                    priority = CardPriority.MEDIUM
+                ))
+                cardVisibility = false
+            }
         }
     } }
 
@@ -79,8 +83,10 @@ class WeatherCardPlugin : ICardPlugin, CreateViewFactory.CreateViewListener {
                     IAiCloudMessageListener {
                     override fun dispatchMessage(message: String) {
 //                        weatherService?.sendWeatherData("开始请求")
-                        Log.d(TAG,"ServiceConnection getAiCloudService registerMessageListener dispatchMessage = $message")
-                        weatherService?.requestWeatherData("req_${System.currentTimeMillis()}",message,callAIDLBack)
+//                        weatherService?.sendWeatherData(message)
+                        Log.d(TAG,"ServiceConnection getAiCloudService registerMessageListener dispatchMessage message = $message")
+                        weatherService?.sendWeatherData("req_${System.currentTimeMillis()}",message,callAIDLBack)
+
                     }
 
                 })
@@ -224,9 +230,10 @@ class WeatherCardPlugin : ICardPlugin, CreateViewFactory.CreateViewListener {
                 //通知卡片状态
                 when (state){
                     VisibleState.SHOW -> {
-
+                        cardVisibility = true
                     }
                     VisibleState.HIDE -> {
+                        cardVisibility = false
                         CreateViewFactory.destroyView()
                     }
                 }

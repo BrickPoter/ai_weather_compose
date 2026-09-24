@@ -20,11 +20,38 @@ class WeatherAIDLServices: Service() {
     private val TAG = "WeatherAIDLServices"
     private val serviceScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private val binder = object : IAIDLWeatherService.Stub() {
-        override fun sendWeatherData(data: String) {
-            Log.d("WeatherService", "收到天气数据: data=${data}")
-            // 处理业务逻辑
+        override fun sendWeatherData(
+            requestId: String?,
+            data: String?,
+            callback: IAIDLWeatherCallback?
+        ) {
+            Log.d(TAG, "收到异步请求: requestId=$requestId  data = $data")
+            if (callback == null) {
+                Log.e(TAG, "Callback is null")
+                return
+            }
 
+            serviceScope.launch {
+
+                val result = DataAnalysisManager.parseData(data?:"",resources)
+                ensureActive()
+                try {
+                    (result[DataAnalysisResultKey.CARD_UI_DATA] as? CardUIData)?.let{
+                        callback.onCardUIDateResult(it)
+                    }
+//                    callback.onCardBaseInfoResilt(result["baseInfo"] as? CardBaseInfo)
+                }catch (e: Exception){
+                    Log.e(TAG, "Callback baseInfo is error")
+                }
+            }
         }
+//        override fun sendWeatherData(data: String) {
+//            Log.d("WeatherService", "收到天气数据: data=${data}")
+//            // 处理业务逻辑
+//            serviceScope.launch {
+//                DataAnalysisManager.parseData(data,resources)
+//            }
+//        }
 
         override fun requestWeatherData(
             requestId: String?,

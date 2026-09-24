@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/values/styles.xml -->
+<resources>
+
+    <!-- ======================================== -->
+    <!--                 文字样式                   -->
+    <!-- ======================================== -->
+
+    <style name="Title_1_Regular">
+        <item name="android:textSize">@dimen/FONT_Title_1</item>
+        <item name="android:lineHeight">@dimen/FONT_Title_1_h</item>
+    </style>
+    
+    <style name="Title_2_Regular">
+        <item name="android:textSize">@dimen/FONT_Title_2</item>
+        <item name="android:lineHeight">@dimen/FONT_Title_2_h</item>
+    </style>
+
+    <style name="Content_1_Regular">
+        <item name="android:textSize">@dimen/FONT_Content_1</item>
+        <item name="android:lineHeight">@dimen/FONT_Content_1_h</item>
+    </style>
+
+    <style name="Content_1_Small">
+        <item name="android:textSize">@dimen/FONT_Content_1_Small</item>
+        <item name="android:lineHeight">@dimen/FONT_Content_1_Small_h</item>
+    </style>
+
+    <style name="Content_2_Regular">
+        <item name="android:textSize">@dimen/FONT_Content_2</item>
+        <item name="android:lineHeight">@dimen/FONT_Content_2_h</item>
+    </style>
+
+    <style name="Content_3_Regular">
+        <item name="android:textSize">@dimen/FONT_Content_3</item>
+        <item name="android:lineHeight">@dimen/FONT_Content_3_h</item>
+    </style>
+
+    <style name="Content_4_Regular">
+        <item name="android:textSize">@dimen/FONT_Content_4</item>
+        <item name="android:lineHeight">@dimen/FONT_Content_4_h</item>
+    </style>
+
+
+
+
+</resources>

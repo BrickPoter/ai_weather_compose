@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Indicator">
+        <attr name="unSelectedWidth" format="dimension"/>
+        <attr name="selectedWidth" format="dimension"/>
+        <attr name="height" format="dimension"/>
+        <attr name="UnselectedColor" format="color"/>
+        <attr name="selectedColor" format="color"/>
+
+    </declare-styleable>
+
+</resources>

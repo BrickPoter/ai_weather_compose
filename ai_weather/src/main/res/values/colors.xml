@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="Indicator_Selected">#A3000000</color>
+    <color name="Indicator_Unselected">#29000000</color>
+    <color name="Alert_Background">#14EB572B</color>
+    <color name="Fill_Always_Dark">#000000</color>
+
+
     <color name="color_4AA9BCCF">#4AA9BCCF</color>
+    <color name="text_title">#1C1C1C</color>
+    <color name="text_title_transparent_80">#CC1C1C1C</color>
+    <color name="text_content">#161616</color>
+    <color name="text_content_transparent_80">#CC161616</color>
+    <color name="text_content_transparent_90">#E5161616</color>
+    <color name="text_rainy_probability">#39B8E5</color>
+    <color name="text_alert">#CCFF4C27</color>
 </resources>
