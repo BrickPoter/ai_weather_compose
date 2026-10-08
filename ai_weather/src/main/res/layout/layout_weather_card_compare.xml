@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    
+    <LinearLayout
+        android:id="@+id/bg_local"
+        android:layout_width="730dp"
+        android:layout_height="532dp"
+        android:orientation="vertical">
+
+        <com.mosi.mosc.launcher.ai_weather.ui.CardHeaderLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="56dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginTop="47dp"/>
+
+        <com.mosi.mosc.launcher.ai_weather.ui.CardBaseInfoRangeTempLayout
+            android:id="@+id/base_info_range"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="54dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="43dp"/>
+
+        <com.mosi.mosc.launcher.ai_weather.ui.ExtraInfoRecycler
+            android:id="@+id/extra_info"
+            android:background="@drawable/bg_rect_extra_info"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="40dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bg_target"
+        android:layout_width="730dp"
+        android:layout_height="532dp"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/divider"
+            android:background="#FFFFFF"
+            android:layout_width="650dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center"/>
+
+        <com.mosi.mosc.launcher.ai_weather.ui.CardHeaderLayout
+            android:id="@+id/header2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="56dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginTop="46dp"/>
+
+        <com.mosi.mosc.launcher.ai_weather.ui.CardBaseInfoRangeTempLayout
+            android:id="@+id/base_info_range2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="54dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="43dp"/>
+
+        <com.mosi.mosc.launcher.ai_weather.ui.ExtraInfoRecycler
+            android:id="@+id/extra_info2"
+            android:background="@drawable/bg_rect_extra_info"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="40dp"/>
+
+    </LinearLayout>
+
+
+    
+
+
+</LinearLayout>

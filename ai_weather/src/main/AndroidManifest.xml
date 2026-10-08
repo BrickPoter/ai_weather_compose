@@ -5,7 +5,7 @@
     </queries>
     <application>
         <meta-data
-            android:name="WeatherCardPlugin"
+            android:name="weatherCardPlugin"
             android:value="com.mosi.mosc.launcher.ai_weather.WeatherCardPlugin" />
     </application>
 </manifest>

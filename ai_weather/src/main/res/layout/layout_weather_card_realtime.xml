@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="730dp"
+    android:layout_height="1064dp"
+    android:orientation="vertical"
+    android:background="@drawable/clear"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.mosi.mosc.launcher.ai_weather.ui.CardHeaderLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="40dp"/>
+
+    <com.mosi.mosc.launcher.ai_weather.ui.CardBaseInfoCurrentTempLayout
+        android:id="@+id/base_info_current"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_marginStart="54dp"
+        android:layout_marginEnd="32dp"/>
+
+    <com.mosi.mosc.launcher.ai_weather.ui.CardBaseInfoRangeTempLayout
+        android:id="@+id/base_info_range"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginStart="54dp"
+        android:layout_marginEnd="32dp"/>
+
+
+    <com.mosi.mosc.launcher.ai_weather.ui.ForecastInfoRecycler
+        android:id="@+id/forecast"
+        android:layout_width="618dp"
+        android:layout_height="440dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginTop="58dp" />
+
+    <com.mosi.mosc.launcher.ai_weather.ui.ExtraInfoRecycler
+        android:id="@+id/extra_info"
+        android:background="@drawable/bg_rect_extra_info"
+        android:layout_width="650dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="66dp"
+        android:layout_marginEnd="40dp"/>
+
+
+</LinearLayout>

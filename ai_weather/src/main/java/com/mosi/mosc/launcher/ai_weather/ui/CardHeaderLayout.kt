@@ -16,7 +16,9 @@ class CardHeaderLayout(context: Context, attributeSet: AttributeSet):
     /** 对外提供设置数据的方法 */
     fun bindData(location: String?, time: String?) {
         binding.textLocation.text = location
-        binding.textTime.text = "·$time"
+        if (time != null) {
+            binding.textTime.text = "·$time"
+        }
     }
 
     /** 如果外部想单独访问控件 */

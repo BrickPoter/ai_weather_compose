@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.mosi.mosc.ai_weather.been.CardWarnInfo
 import com.mosi.mosc.launcher.ai_weather.databinding.LayoutAlertInfoItemBinding
-import com.mosi.mosc.launcher.ai_weather.model.AlertItem
 import com.mosi.mosc.launcher.ai_weather.utils.Utils
 
-class AlertInfoRecycler(context: Context, attrs: AttributeSet) :
+class WarnInfoRecycler(context: Context, attrs: AttributeSet) :
         RecyclerView(context, attrs) {
 
     private val alertAdapter = AlertAdapter()
@@ -27,12 +27,12 @@ class AlertInfoRecycler(context: Context, attrs: AttributeSet) :
     }
 
     // ======== 对外 API ========
-    fun setItems(items: List<AlertItem>) {
+    fun setItems(items: List<CardWarnInfo>) {
         // toList() 做防御性拷贝；submitList 内部走 DiffUtil
         alertAdapter.submitList(items.toList())
     }
 
-    fun setOnItemClickListener(listener: (AlertItem) -> Unit) {
+    fun setOnItemClickListener(listener: (CardWarnInfo) -> Unit) {
         alertAdapter.onItemClick = listener
     }
 
@@ -58,9 +58,9 @@ class AlertInfoRecycler(context: Context, attrs: AttributeSet) :
 
     fun isPagerMode() = pagerMode
 
-    private class AlertAdapter : ListAdapter<AlertItem, AlertAdapter.Holder>(DIFF){
+    private class AlertAdapter : ListAdapter<CardWarnInfo, AlertAdapter.Holder>(DIFF){
 
-        var onItemClick: ((AlertItem) -> Unit)? = null
+        var onItemClick: ((CardWarnInfo) -> Unit)? = null
 
         override fun onCreateViewHolder(
             parent: ViewGroup,
@@ -89,18 +89,19 @@ class AlertInfoRecycler(context: Context, attrs: AttributeSet) :
         private class Holder(val binding: LayoutAlertInfoItemBinding) :
             ViewHolder(binding.root) {
 
-            fun bind(data: AlertItem) {
-                binding.itemImage.setImageResource(Utils.getAlertImageId(data.alertLevel))
-                binding.itemText.text = data.text
+            fun bind(data: CardWarnInfo) {
+                if (data.title == null) return
+                binding.itemImage.setImageResource(Utils.getAlertImageResourceId(data.title))
+                binding.itemText.text = data.content
             }
         }
 
         companion object {
-            private val DIFF = object : DiffUtil.ItemCallback<AlertItem>() {
-                override fun areItemsTheSame(oldItem: AlertItem, newItem: AlertItem): Boolean =
-                    oldItem.alertLevel == newItem.alertLevel && oldItem.text == newItem.text
+            private val DIFF = object : DiffUtil.ItemCallback<CardWarnInfo>() {
+                override fun areItemsTheSame(oldItem: CardWarnInfo, newItem: CardWarnInfo): Boolean =
+                    oldItem.title == newItem.title && oldItem.content == newItem.content
 
-                override fun areContentsTheSame(oldItem: AlertItem, newItem: AlertItem): Boolean =
+                override fun areContentsTheSame(oldItem: CardWarnInfo, newItem: CardWarnInfo): Boolean =
                     oldItem == newItem
             }
         }

@@ -9,4 +9,5 @@
     <string name="text_time">·今天</string>
     <string name="temp_high_low">%1$s/%2$s</string>
     <string name="time">12/3</string>
+    <string name="sunrise">06:00</string>
 </resources>

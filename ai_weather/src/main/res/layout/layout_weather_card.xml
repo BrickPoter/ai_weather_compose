@@ -37,7 +37,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginTop="36dp"/>
 
-    <com.mosi.mosc.launcher.ai_weather.ui.AlertInfoRecycler
+    <com.mosi.mosc.launcher.ai_weather.ui.WarnInfoRecycler
         android:id="@+id/alert"
         android:background="@drawable/bg_rect_alert_info"
         android:layout_width="match_parent"
@@ -57,7 +57,7 @@
         tools:visibility="visible"
         app:selectedWidth="24dp"/>
 
-    <com.mosi.mosc.launcher.ai_weather.ui.ForecastInfo
+    <com.mosi.mosc.launcher.ai_weather.ui.ForecastInfoRecycler
         android:id="@+id/forecast"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
     <!--        app:layout_constraintTop_toBottomOf="@+id/forecast"-->
     <!--        tools:visibility="visible" />-->
 
-    <com.mosi.mosc.launcher.ai_weather.ui.ExtraInfo
+    <com.mosi.mosc.launcher.ai_weather.ui.ExtraInfoRecycler
         android:id="@+id/extra_info"
         android:background="@drawable/bg_rect_extra_info"
         android:layout_width="match_parent"
