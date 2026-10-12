@@ -2,7 +2,9 @@ package com.mosi.mosc.launcher.ai_weather.ui
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -107,4 +109,27 @@ class WarnInfoRecycler(context: Context, attrs: AttributeSet) :
         }
 
     }
+
+    override fun onInterceptTouchEvent(e: MotionEvent): Boolean {
+        Log.d("WarnRV", "intercept action=${e.actionMasked}")
+        return super.onInterceptTouchEvent(e)
+    }
+
+    override fun onTouchEvent(e: MotionEvent): Boolean {
+        val result = super.onTouchEvent(e)
+
+        Log.d(
+            "WarnRV",
+            "action=${e.actionMasked}, " +
+                    "x=${e.x}, y=${e.y}, " +
+                    "scrollState=$scrollState, " +
+                    "canScrollLeft=${canScrollHorizontally(-1)}, " +
+                    "canScrollRight=${canScrollHorizontally(1)}, " +
+                    "result=$result"
+        )
+
+        return result
+    }
+
+
 }

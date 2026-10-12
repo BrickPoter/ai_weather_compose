@@ -1,44 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="730dp"
     android:layout_height="1064dp"
-    android:orientation="vertical"
-    android:background="@drawable/clear"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.mosi.mosc.launcher.ai_weather.ui.CardHeaderLayout
         android:id="@+id/header"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginTop="40dp"
         android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginTop="40dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.mosi.mosc.launcher.ai_weather.ui.CardBaseInfoCurrentTempLayout
         android:id="@+id/base_info_current"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        tools:visibility="visible"
         android:layout_marginStart="54dp"
-        android:layout_marginEnd="32dp"/>
+        android:layout_marginTop="140dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
     <com.mosi.mosc.launcher.ai_weather.ui.CardBaseInfoRangeTempLayout
         android:id="@+id/base_info_range"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:layout_marginStart="54dp"
-        android:layout_marginEnd="32dp"/>
+        android:layout_marginTop="140dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <com.mosi.mosc.launcher.ai_weather.ui.WarnInfoRecycler
+        android:id="@+id/warn"
+        android:layout_width="634dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="380dp"
+        android:layout_marginStart="48dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:background="@drawable/bg_rect_alert_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.mosi.mosc.launcher.ai_weather.ui.Indicator
+        android:id="@+id/indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="@id/warn"
+        app:layout_constraintEnd_toEndOf="@id/warn"
+        app:layout_constraintTop_toBottomOf="@id/warn"
+        app:selectedWidth="24dp" />
 
     <com.mosi.mosc.launcher.ai_weather.ui.ExtraInfoRecycler
         android:id="@+id/extra_info"
-        android:background="@drawable/bg_rect_extra_info"
         android:layout_width="650dp"
-        android:layout_height="632dp"
+        android:layout_height="500dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="40dp"/>
+        android:layout_marginTop="524dp"
+        android:background="@drawable/bg_rect_extra_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

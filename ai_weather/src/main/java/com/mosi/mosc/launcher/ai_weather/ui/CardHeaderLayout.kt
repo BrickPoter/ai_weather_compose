@@ -17,7 +17,10 @@ class CardHeaderLayout(context: Context, attributeSet: AttributeSet):
     fun bindData(location: String?, time: String?) {
         binding.textLocation.text = location
         if (time != null) {
-            binding.textTime.text = "·$time"
+            binding.textTime.apply {
+                text = "·$time"
+                visibility = VISIBLE
+            }
         }
     }
 

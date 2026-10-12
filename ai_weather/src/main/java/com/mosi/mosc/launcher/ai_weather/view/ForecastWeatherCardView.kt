@@ -20,24 +20,32 @@ class ForecastWeatherCardView(context: Context): WeatherCardView(context){
         val baseInfo = data.baseInfo
         binding.header.bindData(baseInfo.location, null)
         val forecastInfo = data.forecastInfo
-        if (!forecastInfo.isEmpty()) {
+        val warnInfo = data.warnInfo
+        val lp = binding.forecast.layoutParams
+        if (warnInfo.isEmpty()) {
+            lp.height = Utils.dp2px(context, 836)
             binding.forecast.apply {
-                setItems(forecastInfo.subList(0, forecastInfo.size.coerceAtMost(7)))
+                setItems(forecastInfo.subList(0, forecastInfo.size.coerceAtMost(8)))
                 setItemSpace(28)
             }
-        }
-        val warnInfo = data.warnInfo
-        if (!warnInfo.isEmpty()) {
+        } else {
+            lp.height = Utils.dp2px(context, 728)
+            binding.forecast.apply {
+                setItems(forecastInfo.subList(0, forecastInfo.size.coerceAtMost(8)))
+                setItemSpace(28)
+                }
+
             binding.warn.apply {
                 setItems(warnInfo)
                 setPagerMode(true)
                 visibility = View.VISIBLE
             }
-        }
-        if (warnInfo.size > 1) {
-            binding.indicator.apply {
-                attachToRecyclerView(binding.warn)
-                visibility = View.VISIBLE
+
+            if (warnInfo.size > 1) {
+                binding.indicator.apply {
+                    attachToRecyclerView(binding.warn)
+                    visibility = View.VISIBLE
+                }
             }
         }
 

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -82,7 +81,7 @@ class ForecastInfoRecycler(context: Context, attributeSet: AttributeSet):
         ) : ViewHolder(itemBinding.root) {
 
             fun bind(data: CardForecastInfo, position: Int, space: Int) = with(itemBinding){
-                val imageId = Utils.getWeatherIconResourceId(data.condition)
+                val imageId = Utils.getWeatherIconResourceId(data.icon)
                 itemImageIcon.setImageResource(imageId)
                 itemTextTime.text = data.time
                 if (data.lowTemp != null) {
@@ -92,8 +91,16 @@ class ForecastInfoRecycler(context: Context, attributeSet: AttributeSet):
                 }
                 itemTextCondition.text = data.condition
                 if (!data.probability.isNullOrEmpty()) {
-                    itemTextProbability.text = data.probability
-                    itemTextProbability.visibility = View.VISIBLE
+                    val probability = data.probability
+                        .replace("%", "")
+                        .trim()
+                        .toDoubleOrNull()
+                        ?.toInt()
+
+                    if (probability != null && probability > 0) {
+                        itemTextProbability.text = "$probability%"
+                        itemTextProbability.visibility = VISIBLE
+                    }
                 }
 
                 val params = itemView.layoutParams as LayoutParams

@@ -1,9 +1,9 @@
 package com.mosi.mosc.launcher.ai_weather
 
 import com.mosi.mosc.ai_weather.been.CardUIData
+import com.mosi.mosc.launcher.ai_weather.enums.WeatherDisplayMode
 
 class WeatherRepository {
-
     // weather_server 解析的数据
     private var data: List<CardUIData>? = null
     private var refreshAction: (() -> Unit)? = null
@@ -27,5 +27,25 @@ class WeatherRepository {
     fun clear() {
         data = null
         refreshAction = null
+    }
+
+    fun getDisplayMode(): WeatherDisplayMode {
+        if (data.isNullOrEmpty()) return WeatherDisplayMode.BASE
+
+        // 天气对比卡片
+        if (data!!.size > 1) return WeatherDisplayMode.COMPARE
+
+        // 其他卡片
+        val cardUIData = data!![0]
+        val granularity = cardUIData.granularity
+        val forecastInfo = cardUIData.forecastInfo
+        val extraInfo = cardUIData.extraInfo
+
+        if (granularity.lowercase().replace("-","").replace("_","") == "multiday") {
+            return WeatherDisplayMode.FORECAST
+        }
+        if (forecastInfo.isNotEmpty()) return WeatherDisplayMode.REALTIME
+        if (extraInfo.size > 2) return WeatherDisplayMode.EXPAND
+        return WeatherDisplayMode.BASE
     }
 }

@@ -1,10 +1,8 @@
 package com.mosi.mosc.launcher.ai_weather.view
 
 import android.content.Context
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.mosi.mosc.ai_weather.been.CardUIData
 import com.mosi.mosc.launcher.ai_weather.databinding.LayoutWeatherCardBaseLargeBinding
 import com.mosi.mosc.launcher.ai_weather.ui.ExtraInfoRecycler

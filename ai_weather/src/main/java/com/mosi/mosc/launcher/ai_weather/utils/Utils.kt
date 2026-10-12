@@ -128,6 +128,6 @@ object Utils {
         "沙尘" -> R.drawable.dust_dust
 
         // 没有匹配到图标
-        else -> R.drawable.no_resource
+        else -> R.drawable.shade_shade
     }
 }
