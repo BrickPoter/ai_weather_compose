@@ -51,6 +51,8 @@ class RealtimeWeatherCardView(context: Context): WeatherCardView(context) {
         val lp = binding.forecast.layoutParams as ConstraintLayout.LayoutParams
 
         if (warnInfo.isEmpty()) {
+            binding.warn.visibility = View.GONE
+            binding.indicator.visibility = View.GONE
             lp.topMargin = Utils.dp2px(context, 398)
             lp.height = Utils.dp2px(context, 440)
 

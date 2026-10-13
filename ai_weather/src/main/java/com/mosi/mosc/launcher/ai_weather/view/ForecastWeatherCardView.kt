@@ -23,6 +23,8 @@ class ForecastWeatherCardView(context: Context): WeatherCardView(context){
         val warnInfo = data.warnInfo
         val lp = binding.forecast.layoutParams
         if (warnInfo.isEmpty()) {
+            binding.warn.visibility = View.GONE
+            binding.indicator.visibility = View.GONE
             lp.height = Utils.dp2px(context, 836)
             binding.forecast.apply {
                 setItems(forecastInfo.subList(0, forecastInfo.size.coerceAtMost(8)))

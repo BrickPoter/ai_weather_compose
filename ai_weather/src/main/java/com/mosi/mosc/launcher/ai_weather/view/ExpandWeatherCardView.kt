@@ -51,6 +51,9 @@ class ExpandWeatherCardView(context: Context): WeatherCardView(context) {
         val extraInfo = data.extraInfo
         val lp = binding.extraInfo.layoutParams as ConstraintLayout.LayoutParams
         if (warnInfo.isEmpty()) {
+            binding.warn.visibility = View.GONE
+            binding.indicator.visibility = View.GONE
+
             lp.topMargin = Utils.dp2px(context, 392)
             lp.height = Utils.dp2px(context, 632)
 
