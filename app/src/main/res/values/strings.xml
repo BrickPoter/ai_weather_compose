@@ -32,4 +32,6 @@
     <string name="weather_object_title_car_wash_index">洗车指数</string>
     <string name="weather_object_title_air_pollution_dispersion">空气污染扩散条件</string>
     <string name="weather_object_title_traffic_restriction">交通限行</string>
+    <string name="weather_object_title_sunrise">日出</string>
+    <string name="weather_object_title_sunset">日落</string>
 </resources>

@@ -1,0 +1,1424 @@
+{
+    "header": {
+        "agentId": "weather",
+        "sessionId": "ecoEKvNueOYNCNg0jVCOb",
+        "messageId": "oOqsWOtbwovHI2kdy-a7G",
+        "messageStatus": "running",
+        "time": "2026-09-14 10:20:12.808",
+        "topic": "agent/frame_reply"
+    },
+    "payload": {
+        "dataType": "semantic",
+        "index": 1,
+        "data": {
+            "hasStream": true,
+            "taskState": "completed",
+            "taskId": "d1",
+            "domain": "WEATHER",
+            "intention": "SHOW_DATA",
+            "query": "今天天气如何",
+            "slots": {
+                "bindings": [
+                    {
+                        "time": {
+                            "endTime": "2026-09-14T23:59:59+08:00",
+                            "expression": "今天",
+                            "granularity": "multi_day",
+                            "startTime": "2026-09-14T00:00:00+08:00",
+                            "role": "target"
+                        },
+                        "weatherObjects": [
+                            "weather_condition",
+                            "temperature",
+                            "air_quality",
+                            "clothing_index"
+                        ]
+                    }
+                ]
+            },
+            "bizData": {
+                "hourly": [
+                    {
+                        "qpf": "0.0",
+                        "pop": "0",
+                        "windLevel": "1",
+                        "pressure": "967",
+                        "date": 1789351200000,
+                        "windDegrees": "315",
+                        "conditionId": "13",
+                        "updateTime": 1789351832000,
+                        "condition": "阴",
+                        "dayNight": true,
+                        "windSpeed": "1.08",
+                        "snow": "0",
+                        "iconDay": "2",
+                        "realFeel": "21",
+                        "humidity": "76",
+                        "windDir": {
+                            "code": "NNW",
+                            "name": "西北风"
+                        },
+                        "uvi": "1",
+                        "temp": "20",
+                        "iconNight": "2"
+                    },
+                    {
+                        "qpf": "0.0",
+                        "pop": "0",
+                        "windLevel": "0",
+                        "pressure": "1023",
+                        "date": 1789354800000,
+                        "windDegrees": "180",
+                        "conditionId": "13",
+                        "updateTime": 1789351832000,
+                        "condition": "阴",
+                        "dayNight": true,
+                        "windSpeed": "0.36",
+                        "snow": "0",
+                        "iconDay": "2",
+                        "realFeel": "26",
+                        "humidity": "66",
+                        "windDir": {
+                            "code": "S",
+                            "name": "南风"
+                        },
+                        "uvi": "3",
+                        "temp": "22",
+                        "iconNight": "2"
+                    },
+                    {
+                        "qpf": "0.0",
+                        "pop": "0",
+                        "windLevel": "0",
+                        "pressure": "1021",
+                        "date": 1789358400000,
+                        "windDegrees": "180",
+                        "conditionId": "13",
+                        "updateTime": 1789351832000,
+                        "condition": "阴",
+                        "dayNight": true,
+                        "windSpeed": "0.72",
+                        "snow": "0",
+                        "iconDay": "2",
+                        "realFeel": "26",
+                        "humidity": "64",
+                        "windDir": {
+                            "code": "S",
+                            "name": "南风"
+                        },
+                        "uvi": "3",
+                        "temp": "23",
+                        "iconNight": "2"
+                    },
+                    {
+                        "qpf": "0.0",
+                        "pop": "0",
+                        "windLevel": "1",
+                        "pressure": "1020",
+                        "date": 1789362000000,
+                        "windDegrees": "135",
+                        "conditionId": "13",
+                        "updateTime": 1789351832000,
+                        "condition": "阴",
+                        "dayNight": true,
+                        "windSpeed": "1.08",
+                        "snow": "0",
+                        "iconDay": "2",
+                        "realFeel": "26",
+                        "humidity": "62",
+                        "windDir": {
+                            "code": "SSE",
+                            "name": "东南风"
+                        },
+                        "uvi": "3",
+                        "temp": "24",
+                        "iconNight": "2"
+                    },
+                    {
+                        "qpf": "0.0",
+                        "pop": "0",
+                        "windLevel": "0",
+                        "pressure": "1019",
+                        "date": 1789365600000,
+                        "windDegrees": "135",
+                        "conditionId": "13",
+                        "updateTime": 1789351832000,
+                        "condition": "阴",
+                        "dayNight": true,
+                        "windSpeed": "0.72",
+                        "snow": "0.0",
+                        "iconDay": "2",
+                        "realFeel": "26",
+                        "humidity": "61",
+                        "windDir": {
+                            "code": "SSE",
+                            "name": "东南风"
+                        },
+                        "uvi": "3",
+                        "temp": "24",
+                        "iconNight": "2"
+                    },
+                    {
+                        "qpf": "0.0",
+                        "pop": "0",
+                        "windLevel": "0",
+                        "pressure": "1019",
+                        "date": 1789369200000,
+                        "windDegrees": "90",
+                        "conditionId": "13",
+                        "updateTime": 1789351832000,
+                        "condition": "阴",
+                        "dayNight": true,
+                        "windSpeed": "0.72",
+                        "snow": "0.0",
+                        "iconDay": "2",
+                        "realFeel": "27",
+                        "humidity": "62",
+                        "windDir": {
+                            "code": "E",
+                            "name": "东风"
+                        },
+                        "uvi": "2",
+                        "temp": "24",
+                        "iconNight": "2"
+                    },
+                    {
+                        "qpf": "0.0",
+                        "pop": "0",
+                        "windLevel": "1",
+                        "pressure": "1018",
+                        "date": 1789372800000,
+                        "windDegrees": "45",
+                        "conditionId": "13",
+                        "updateTime": 1789351832000,
+                        "condition": "阴",
+                        "dayNight": true,
+                        "windSpeed": "1.44",
+                        "snow": "0.0",
+                        "iconDay": "2",
+                        "realFeel": "26",
+                        "humidity": "64",
+                        "windDir": {
+                            "code": "ENE",
+                            "name": "东北风"
+                        },
+                        "uvi": "2",
+                        "temp": "24",
+                        "iconNight": "2"
+                    },
+                    {
+                        "qpf": "0.0",
+                        "pop": "0",
+                        "windLevel": "1",
+                        "pressure": "1017",
+                        "date": 1789376400000,
+                        "windDegrees": "45",
+                        "conditionId": "13",
+                        "updateTime": 1789351832000,
+                        "condition": "阴",
+                        "dayNight": true,
+                        "windSpeed": "2.52",
+                        "snow": "0.0",
+                        "iconDay": "2",
+                        "realFeel": "26",
+                        "humidity": "65",
+                        "windDir": {
+                            "code": "ENE",
+                            "name": "东北风"
+                        },
+                        "uvi": "1",
+                        "temp": "23",
+                        "iconNight": "2"
+                    },
+                    {
+                        "qpf": "0.0",
+                        "pop": "0",
+                        "windLevel": "1",
+                        "pressure": "1017",
+                        "date": 1789380000000,
+                        "windDegrees": "45",
+                        "conditionId": "13",
+                        "updateTime": 1789351832000,
+                        "condition": "阴",
+                        "dayNight": true,
+                        "windSpeed": "3.24",
+                        "snow": "0.0",
+                        "iconDay": "2",
+                        "realFeel": "25",
+                        "humidity": "72",
+                        "windDir": {
+                            "code": "NE",
+                            "name": "东北风"
+                        },
+                        "uvi": "1",
+                        "temp": "23",
+                        "iconNight": "2"
+                    },
+                    {
+                        "qpf": "0.0",
+                        "pop": "0",
+                        "windLevel": "1",
+                        "pressure": "1019",
+                        "date": 1789383600000,
+                        "windDegrees": "45",
+                        "conditionId": "13",
+                        "updateTime": 1789351832000,
+                        "condition": "阴",
+                        "dayNight": true,
+                        "windSpeed": "4.68",
+                        "snow": "0.0",
+                        "iconDay": "2",
+                        "realFeel": "24",
+                        "humidity": "77",
+                        "windDir": {
+                            "code": "NE",
+                            "name": "东北风"
+                        },
+                        "uvi": "1",
+                        "temp": "22",
+                        "iconNight": "2"
+                    },
+                    {
+                        "qpf": "0.2",
+                        "pop": "90",
+                        "windLevel": "2",
+                        "pressure": "1019",
+                        "date": 1789387200000,
+                        "windDegrees": "45",
+                        "conditionId": "78",
+                        "updateTime": 1789351832000,
+                        "condition": "雨",
+                        "dayNight": false,
+                        "windSpeed": "6.48",
+                        "snow": "0.0",
+                        "iconDay": "8",
+                        "realFeel": "23",
+                        "humidity": "81",
+                        "windDir": {
+                            "code": "NNE",
+                            "name": "东北风"
+                        },
+                        "uvi": "0",
+                        "temp": "21",
+                        "iconNight": "8"
+                    },
+                    {
+                        "qpf": "0.4",
+                        "pop": "90",
+                        "windLevel": "2",
+                        "pressure": "1020",
+                        "date": 1789390800000,
+                        "windDegrees": "45",
+                        "conditionId": "78",
+                        "updateTime": 1789351832000,
+                        "condition": "雨",
+                        "dayNight": false,
+                        "windSpeed": "6.12",
+                        "snow": "0.0",
+                        "iconDay": "8",
+                        "realFeel": "23",
+                        "humidity": "86",
+                        "windDir": {
+                            "code": "NNE",
+                            "name": "东北风"
+                        },
+                        "uvi": "0",
+                        "temp": "21",
+                        "iconNight": "8"
+                    },
+                    {
+                        "qpf": "0.4",
+                        "pop": "90",
+                        "windLevel": "2",
+                        "pressure": "1020",
+                        "date": 1789394400000,
+                        "windDegrees": "45",
+                        "conditionId": "78",
+                        "updateTime": 1789351832000,
+                        "condition": "雨",
+                        "dayNight": false,
+                        "windSpeed": "6.12",
+                        "snow": "0.0",
+                        "iconDay": "8",
+                        "realFeel": "23",
+                        "humidity": "88",
+                        "windDir": {
+                            "code": "NNE",
+                            "name": "东北风"
+                        },
+                        "uvi": "0",
+                        "temp": "19",
+                        "iconNight": "8"
+                    },
+                    {
+                        "qpf": "0.5",
+                        "pop": "90",
+                        "windLevel": "2",
+                        "pressure": "1021",
+                        "date": 1789398000000,
+                        "windDegrees": "45",
+                        "conditionId": "78",
+                        "updateTime": 1789351832000,
+                        "condition": "雨",
+                        "dayNight": false,
+                        "windSpeed": "5.76",
+                        "snow": "0.0",
+                        "iconDay": "8",
+                        "realFeel": "23",
+                        "humidity": "91",
+                        "windDir": {
+                            "code": "NNE",
+                            "name": "东北风"
+                        },
+                        "uvi": "0",
+                        "temp": "19",
+                        "iconNight": "8"
+                    },
+                    {
+                        "qpf": "0.5",
+                        "pop": "90",
+                        "windLevel": "1",
+                        "pressure": "1020",
+                        "date": 1789401600000,
+                        "windDegrees": "45",
+                        "conditionId": "78",
+                        "updateTime": 1789351832000,
+                        "condition": "雨",
+                        "dayNight": false,
+                        "windSpeed": "5.04",
+                        "snow": "0.0",
+                        "iconDay": "8",
+                        "realFeel": "19",
+                        "humidity": "92",
+                        "windDir": {
+                            "code": "NNE",
+                            "name": "东北风"
+                        },
+                        "uvi": "0",
+                        "temp": "19",
+                        "iconNight": "8"
+                    },
+                    {
+                        "qpf": "0.5",
+                        "pop": "90",
+                        "windLevel": "1",
+                        "pressure": "1020",
+                        "date": 1789405200000,
+                        "windDegrees": "0",
+                        "conditionId": "78",
+                        "updateTime": 1789351832000,
+                        "condition": "雨",
+                        "dayNight": false,
+                        "windSpeed": "4.32",
+                        "snow": "0.0",
+                        "iconDay": "8",
+                        "realFeel": "19",
+                        "humidity": "92",
+                        "windDir": {
+                            "code": "N",
+                            "name": "北风"
+                        },
+                        "uvi": "0",
+                        "temp": "19",
+                        "iconNight": "8"
+                    },
+                    {
+                        "qpf": "0.4",
+                        "pop": "90",
+                        "windLevel": "1",
+                        "pressure": "1019",
+                        "date": 1789408800000,
+                        "windDegrees": "0",
+                        "conditionId": "78",
+                        "updateTime": 1789351832000,
+                        "condition": "雨",
+                        "dayNight": false,
+                        "windSpeed": "3.96",
+                        "snow": "0.0",
+                        "iconDay": "8",
+                        "realFeel": "18",
+                        "humidity": "93",
+                        "windDir": {
+                            "code": "N",
+                            "name": "北风"
+                        },
+                        "uvi": "0",
+                        "temp": "18",
+                        "iconNight": "8"
+                    },
+                    {
+                        "qpf": "0.4",
+                        "pop": "90",
+                        "windLevel": "1",
+                        "pressure": "1019",
+                        "date": 1789412400000,
+                        "windDegrees": "0",
+                        "conditionId": "78",
+                        "updateTime": 1789351832000,
+                        "condition": "雨",
+                        "dayNight": false,
+                        "windSpeed": "3.60",
+                        "snow": "0.0",
+                        "iconDay": "8",
+                        "realFeel": "18",
+                        "humidity": "93",
+                        "windDir": {
+                            "code": "N",
+                            "name": "北风"
+                        },
+                        "uvi": "0",
+                        "temp": "18",
+                        "iconNight": "8"
+                    },
+                    {
+                        "qpf": "0.5",
+                        "pop": "90",
+                        "windLevel": "1",
+                        "pressure": "1018",
+                        "date": 1789416000000,
+                        "windDegrees": "45",
+                        "conditionId": "78",
+                        "updateTime": 1789351832000,
+                        "condition": "雨",
+                        "dayNight": false,
+                        "windSpeed": "3.24",
+                        "snow": "0.0",
+                        "iconDay": "8",
+                        "realFeel": "18",
+                        "humidity": "93",
+                        "windDir": {
+                            "code": "NNE",
+                            "name": "东北风"
+                        },
+                        "uvi": "0",
+                        "temp": "18",
+                        "iconNight": "8"
+                    },
+                    {
+                        "qpf": "0.6",
+                        "pop": "90",
+                        "windLevel": "1",
+                        "pressure": "1018",
+                        "date": 1789419600000,
+                        "windDegrees": "45",
+                        "conditionId": "78",
+                        "updateTime": 1789351832000,
+                        "condition": "雨",
+                        "dayNight": false,
+                        "windSpeed": "2.88",
+                        "snow": "0.0",
+                        "iconDay": "8",
+                        "realFeel": "18",
+                        "humidity": "93",
+                        "windDir": {
+                            "code": "NNE",
+                            "name": "东北风"
+                        },
+                        "uvi": "0",
+                        "temp": "18",
+                        "iconNight": "8"
+                    },
+                    {
+                        "qpf": "0.4",
+                        "pop": "90",
+                        "windLevel": "1",
+                        "pressure": "1018",
+                        "date": 1789423200000,
+                        "windDegrees": "45",
+                        "conditionId": "78",
+                        "updateTime": 1789351832000,
+                        "condition": "雨",
+                        "dayNight": false,
+                        "windSpeed": "2.88",
+                        "snow": "0.0",
+                        "iconDay": "8",
+                        "realFeel": "18",
+                        "humidity": "93",
+                        "windDir": {
+                            "code": "NNE",
+                            "name": "东北风"
+                        },
+                        "uvi": "0",
+                        "temp": "18",
+                        "iconNight": "8"
+                    },
+                    {
+                        "qpf": "0.4",
+                        "pop": "90",
+                        "windLevel": "1",
+                        "pressure": "1018",
+                        "date": 1789426800000,
+                        "windDegrees": "45",
+                        "conditionId": "78",
+                        "updateTime": 1789351832000,
+                        "condition": "雨",
+                        "dayNight": true,
+                        "windSpeed": "3.24",
+                        "snow": "0.0",
+                        "iconDay": "8",
+                        "realFeel": "18",
+                        "humidity": "93",
+                        "windDir": {
+                            "code": "NNE",
+                            "name": "东北风"
+                        },
+                        "uvi": "1",
+                        "temp": "18",
+                        "iconNight": "8"
+                    },
+                    {
+                        "qpf": "0.4",
+                        "pop": "90",
+                        "windLevel": "1",
+                        "pressure": "1018",
+                        "date": 1789430400000,
+                        "windDegrees": "0",
+                        "conditionId": "78",
+                        "updateTime": 1789351832000,
+                        "condition": "雨",
+                        "dayNight": true,
+                        "windSpeed": "3.60",
+                        "snow": "0.0",
+                        "iconDay": "8",
+                        "realFeel": "18",
+                        "humidity": "93",
+                        "windDir": {
+                            "code": "N",
+                            "name": "北风"
+                        },
+                        "uvi": "1",
+                        "temp": "19",
+                        "iconNight": "8"
+                    },
+                    {
+                        "qpf": "0.5",
+                        "pop": "90",
+                        "windLevel": "1",
+                        "pressure": "1019",
+                        "date": 1789434000000,
+                        "windDegrees": "45",
+                        "conditionId": "78",
+                        "updateTime": 1789351832000,
+                        "condition": "雨",
+                        "dayNight": true,
+                        "windSpeed": "3.24",
+                        "snow": "0.0",
+                        "iconDay": "8",
+                        "realFeel": "19",
+                        "humidity": "92",
+                        "windDir": {
+                            "code": "NNE",
+                            "name": "东北风"
+                        },
+                        "uvi": "1",
+                        "temp": "19",
+                        "iconNight": "8"
+                    },
+                    {
+                        "qpf": "0.4",
+                        "pop": "90",
+                        "windLevel": "1",
+                        "pressure": "1019",
+                        "date": 1789437600000,
+                        "windDegrees": "45",
+                        "conditionId": "78",
+                        "updateTime": 1789351832000,
+                        "condition": "雨",
+                        "dayNight": true,
+                        "windSpeed": "2.88",
+                        "snow": "0.0",
+                        "iconDay": "8",
+                        "realFeel": "19",
+                        "humidity": "90",
+                        "windDir": {
+                            "code": "NNE",
+                            "name": "东北风"
+                        },
+                        "uvi": "1",
+                        "temp": "20",
+                        "iconNight": "8"
+                    }
+                ],
+                "forecast": [
+                    {
+                        "pop": "0",
+                        "conditionNight": "少云",
+                        "windDegreesNight": "225",
+                        "updateTime": 1789306020000,
+                        "conditionDay": "少云",
+                        "windSpeedDay": "2.4",
+                        "sunset": 1789297980000,
+                        "conditionIdNight": "31",
+                        "windDegreesDay": "225",
+                        "tempNight": "19",
+                        "moonPhase": "WaxingCrescent",
+                        "windDirNight": {
+                            "code": "西南风",
+                            "name": "微风"
+                        },
+                        "sunrise": 1789253220000,
+                        "windLevelNight": "1",
+                        "conditionIdDay": "1",
+                        "moonrise": 1789260180000,
+                        "predictDate": 1789228800000,
+                        "moonset": 1789301520000,
+                        "windDirDay": {
+                            "code": "西南风",
+                            "name": "微风"
+                        },
+                        "tempDay": "24",
+                        "windSpeedNight": "0.9",
+                        "humidity": "77",
+                        "windLevelDay": "2"
+                    },
+                    {
+                        "pop": "60",
+                        "conditionNight": "雷阵雨",
+                        "windDegreesNight": "45",
+                        "updateTime": 1789337364000,
+                        "conditionDay": "阴",
+                        "windSpeedDay": "0.9",
+                        "sunset": 1789384260000,
+                        "conditionIdNight": "4",
+                        "windDegreesDay": "45",
+                        "tempNight": "17",
+                        "moonPhase": "WaxingCrescent",
+                        "windDirNight": {
+                            "code": "东北风",
+                            "name": "微风"
+                        },
+                        "sunrise": 1789339620000,
+                        "windLevelNight": "2",
+                        "conditionIdDay": "2",
+                        "moonrise": 1789350180000,
+                        "predictDate": 1789315200000,
+                        "moonset": 1789389780000,
+                        "windDirDay": {
+                            "code": "东北风",
+                            "name": "微风"
+                        },
+                        "tempDay": "24",
+                        "windSpeedNight": "2.4",
+                        "humidity": "79",
+                        "windLevelDay": "1"
+                    },
+                    {
+                        "pop": "60",
+                        "conditionNight": "阵雨",
+                        "windDegreesNight": "45",
+                        "updateTime": 1789337364000,
+                        "conditionDay": "阵雨",
+                        "windSpeedDay": "0.9",
+                        "sunset": 1789470600000,
+                        "conditionIdNight": "33",
+                        "windDegreesDay": "0",
+                        "tempNight": "19",
+                        "moonPhase": "WaxingCrescent",
+                        "windDirNight": {
+                            "code": "东北风",
+                            "name": "微风"
+                        },
+                        "sunrise": 1789426080000,
+                        "windLevelNight": "1",
+                        "conditionIdDay": "3",
+                        "moonrise": 1789440180000,
+                        "predictDate": 1789401600000,
+                        "moonset": 1789478280000,
+                        "windDirDay": {
+                            "code": "北风",
+                            "name": "微风"
+                        },
+                        "tempDay": "22",
+                        "windSpeedNight": "0.9",
+                        "humidity": "89",
+                        "windLevelDay": "1"
+                    },
+                    {
+                        "pop": "60",
+                        "conditionNight": "阵雨",
+                        "windDegreesNight": "90",
+                        "updateTime": 1789337364000,
+                        "conditionDay": "阵雨",
+                        "windSpeedDay": "0.9",
+                        "sunset": 1789556940000,
+                        "conditionIdNight": "33",
+                        "windDegreesDay": "45",
+                        "tempNight": "19",
+                        "moonPhase": "WaxingCrescent",
+                        "windDirNight": {
+                            "code": "东风",
+                            "name": "微风"
+                        },
+                        "sunrise": 1789512540000,
+                        "windLevelNight": "1",
+                        "conditionIdDay": "3",
+                        "moonrise": 1789530180000,
+                        "predictDate": 1789488000000,
+                        "moonset": 1789566960000,
+                        "windDirDay": {
+                            "code": "东北风",
+                            "name": "微风"
+                        },
+                        "tempDay": "24",
+                        "windSpeedNight": "0.9",
+                        "humidity": "87",
+                        "windLevelDay": "1"
+                    },
+                    {
+                        "pop": "0",
+                        "conditionNight": "阴",
+                        "windDegreesNight": "135",
+                        "updateTime": 1789337364000,
+                        "conditionDay": "阴",
+                        "windSpeedDay": "2.4",
+                        "sunset": 1789643280000,
+                        "conditionIdNight": "2",
+                        "windDegreesDay": "45",
+                        "tempNight": "19",
+                        "moonPhase": "WaxingCrescent",
+                        "windDirNight": {
+                            "code": "东南风",
+                            "name": "微风"
+                        },
+                        "sunrise": 1789598940000,
+                        "windLevelNight": "2",
+                        "conditionIdDay": "2",
+                        "moonrise": 1789620120000,
+                        "predictDate": 1789574400000,
+                        "moonset": 1789655940000,
+                        "windDirDay": {
+                            "code": "东北风",
+                            "name": "微风"
+                        },
+                        "tempDay": "27",
+                        "windSpeedNight": "2.4",
+                        "humidity": "82",
+                        "windLevelDay": "2"
+                    },
+                    {
+                        "pop": "0",
+                        "conditionNight": "阴",
+                        "windDegreesNight": "45",
+                        "updateTime": 1789337364000,
+                        "conditionDay": "阴",
+                        "windSpeedDay": "2.4",
+                        "sunset": 1789729560000,
+                        "conditionIdNight": "2",
+                        "windDegreesDay": "45",
+                        "tempNight": "20",
+                        "moonPhase": "WaxingCrescent",
+                        "windDirNight": {
+                            "code": "东北风",
+                            "name": "微风"
+                        },
+                        "sunrise": 1789685400000,
+                        "windLevelNight": "2",
+                        "conditionIdDay": "2",
+                        "moonrise": 1789709820000,
+                        "predictDate": 1789660800000,
+                        "moonset": 1789745280000,
+                        "windDirDay": {
+                            "code": "东北风",
+                            "name": "微风"
+                        },
+                        "tempDay": "26",
+                        "windSpeedNight": "2.4",
+                        "humidity": "82",
+                        "windLevelDay": "2"
+                    },
+                    {
+                        "pop": "0",
+                        "conditionNight": "阴",
+                        "windDegreesNight": "45",
+                        "updateTime": 1789337364000,
+                        "conditionDay": "阴",
+                        "windSpeedDay": "2.4",
+                        "sunset": 1789815900000,
+                        "conditionIdNight": "2",
+                        "windDegreesDay": "45",
+                        "tempNight": "21",
+                        "moonPhase": "First",
+                        "windDirNight": {
+                            "code": "东北风",
+                            "name": "微风"
+                        },
+                        "sunrise": 1789771800000,
+                        "windLevelNight": "2",
+                        "conditionIdDay": "2",
+                        "moonrise": 1789799340000,
+                        "predictDate": 1789747200000,
+                        "moonset": 1789747200000,
+                        "windDirDay": {
+                            "code": "东北风",
+                            "name": "微风"
+                        },
+                        "tempDay": "25",
+                        "windSpeedNight": "2.4",
+                        "humidity": "86",
+                        "windLevelDay": "2"
+                    },
+                    {
+                        "pop": "0",
+                        "conditionNight": "阴",
+                        "windDegreesNight": "45",
+                        "updateTime": 1789337364000,
+                        "conditionDay": "阴",
+                        "windSpeedDay": "2.4",
+                        "sunset": 1789902240000,
+                        "conditionIdNight": "2",
+                        "windDegreesDay": "45",
+                        "tempNight": "21",
+                        "moonPhase": "WaxingGibbous",
+                        "windDirNight": {
+                            "code": "东北风",
+                            "name": "微风"
+                        },
+                        "sunrise": 1789858260000,
+                        "windLevelNight": "2",
+                        "conditionIdDay": "2",
+                        "moonrise": 1789888500000,
+                        "predictDate": 1789833600000,
+                        "moonset": 1789834860000,
+                        "windDirDay": {
+                            "code": "东北风",
+                            "name": "微风"
+                        },
+                        "tempDay": "27",
+                        "windSpeedNight": "2.4",
+                        "humidity": "82",
+                        "windLevelDay": "2"
+                    },
+                    {
+                        "pop": "80",
+                        "conditionNight": "阵雨",
+                        "windDegreesNight": "225",
+                        "updateTime": 1789337364000,
+                        "conditionDay": "阴",
+                        "windSpeedDay": "2.4",
+                        "sunset": 1789988520000,
+                        "conditionIdNight": "33",
+                        "windDegreesDay": "225",
+                        "tempNight": "22",
+                        "moonPhase": "WaxingGibbous",
+                        "windDirNight": {
+                            "code": "西南风",
+                            "name": "微风"
+                        },
+                        "sunrise": 1789944660000,
+                        "windLevelNight": "2",
+                        "conditionIdDay": "2",
+                        "moonrise": 1789977420000,
+                        "predictDate": 1789920000000,
+                        "moonset": 1789924620000,
+                        "windDirDay": {
+                            "code": "西南风",
+                            "name": "微风"
+                        },
+                        "tempDay": "28",
+                        "windSpeedNight": "2.4",
+                        "humidity": "81",
+                        "windLevelDay": "2"
+                    },
+                    {
+                        "pop": "60",
+                        "conditionNight": "阴",
+                        "windDegreesNight": "45",
+                        "updateTime": 1789337364000,
+                        "conditionDay": "阵雨",
+                        "windSpeedDay": "2.4",
+                        "sunset": 1790074860000,
+                        "conditionIdNight": "2",
+                        "windDegreesDay": "225",
+                        "tempNight": "21",
+                        "moonPhase": "WaxingGibbous",
+                        "windDirNight": {
+                            "code": "东北风",
+                            "name": "微风"
+                        },
+                        "sunrise": 1790031120000,
+                        "windLevelNight": "2",
+                        "conditionIdDay": "3",
+                        "moonrise": 1790065980000,
+                        "predictDate": 1790006400000,
+                        "moonset": 1790014560000,
+                        "windDirDay": {
+                            "code": "西南风",
+                            "name": "微风"
+                        },
+                        "tempDay": "29",
+                        "windSpeedNight": "2.4",
+                        "humidity": "73",
+                        "windLevelDay": "2"
+                    },
+                    {
+                        "pop": "60",
+                        "conditionNight": "阵雨",
+                        "windDegreesNight": "45",
+                        "updateTime": 1789337364000,
+                        "conditionDay": "阵雨",
+                        "windSpeedDay": "2.4",
+                        "sunset": 1790161200000,
+                        "conditionIdNight": "33",
+                        "windDegreesDay": "135",
+                        "tempNight": "21",
+                        "moonPhase": "WaxingGibbous",
+                        "windDirNight": {
+                            "code": "东北风",
+                            "name": "微风"
+                        },
+                        "sunrise": 1790117580000,
+                        "windLevelNight": "2",
+                        "conditionIdDay": "3",
+                        "moonrise": 1790154360000,
+                        "predictDate": 1790092800000,
+                        "moonset": 1790104440000,
+                        "windDirDay": {
+                            "code": "东南风",
+                            "name": "微风"
+                        },
+                        "tempDay": "29",
+                        "windSpeedNight": "2.4",
+                        "humidity": "74",
+                        "windLevelDay": "2"
+                    },
+                    {
+                        "pop": "60",
+                        "conditionNight": "阴",
+                        "windDegreesNight": "45",
+                        "updateTime": 1789337364000,
+                        "conditionDay": "阵雨",
+                        "windSpeedDay": "4.4",
+                        "sunset": 1790247540000,
+                        "conditionIdNight": "2",
+                        "windDegreesDay": "45",
+                        "tempNight": "21",
+                        "moonPhase": "WaxingGibbous",
+                        "windDirNight": {
+                            "code": "东北风",
+                            "name": "微风"
+                        },
+                        "sunrise": 1790203980000,
+                        "windLevelNight": "2",
+                        "conditionIdDay": "3",
+                        "moonrise": 1790242560000,
+                        "predictDate": 1790179200000,
+                        "moonset": 1790194440000,
+                        "windDirDay": {
+                            "code": "东北风",
+                            "name": "微风"
+                        },
+                        "tempDay": "26",
+                        "windSpeedNight": "2.4",
+                        "humidity": "82",
+                        "windLevelDay": "3"
+                    },
+                    {
+                        "pop": "60",
+                        "conditionNight": "阵雨",
+                        "windDegreesNight": "225",
+                        "updateTime": 1789337364000,
+                        "conditionDay": "阴",
+                        "windSpeedDay": "2.4",
+                        "sunset": 1790333820000,
+                        "conditionIdNight": "33",
+                        "windDegreesDay": "315",
+                        "tempNight": "21",
+                        "moonPhase": "WaxingGibbous",
+                        "windDirNight": {
+                            "code": "西南风",
+                            "name": "微风"
+                        },
+                        "sunrise": 1790290440000,
+                        "windLevelNight": "2",
+                        "conditionIdDay": "2",
+                        "moonrise": 1790330700000,
+                        "predictDate": 1790265600000,
+                        "moonset": 1790284380000,
+                        "windDirDay": {
+                            "code": "西北风",
+                            "name": "微风"
+                        },
+                        "tempDay": "26",
+                        "windSpeedNight": "2.4",
+                        "humidity": "82",
+                        "windLevelDay": "2"
+                    },
+                    {
+                        "pop": "0",
+                        "conditionNight": "阴",
+                        "windDegreesNight": "45",
+                        "updateTime": 1789337364000,
+                        "conditionDay": "阴",
+                        "windSpeedDay": "2.4",
+                        "sunset": 1790420160000,
+                        "conditionIdNight": "2",
+                        "windDegreesDay": "225",
+                        "tempNight": "20",
+                        "moonPhase": "WaxingGibbous",
+                        "windDirNight": {
+                            "code": "东北风",
+                            "name": "微风"
+                        },
+                        "sunrise": 1790376840000,
+                        "windLevelNight": "2",
+                        "conditionIdDay": "2",
+                        "moonrise": 1790418840000,
+                        "predictDate": 1790352000000,
+                        "moonset": 1790374320000,
+                        "windDirDay": {
+                            "code": "西南风",
+                            "name": "微风"
+                        },
+                        "tempDay": "25",
+                        "windSpeedNight": "2.4",
+                        "humidity": "83",
+                        "windLevelDay": "2"
+                    },
+                    {
+                        "pop": "0",
+                        "conditionNight": "阴",
+                        "windDegreesNight": "45",
+                        "updateTime": 1789337364000,
+                        "conditionDay": "阴",
+                        "windSpeedDay": "2.4",
+                        "sunset": 1790506500000,
+                        "conditionIdNight": "2",
+                        "windDegreesDay": "45",
+                        "tempNight": "20",
+                        "moonPhase": "Full",
+                        "windDirNight": {
+                            "code": "东北风",
+                            "name": "微风"
+                        },
+                        "sunrise": 1790463300000,
+                        "windLevelNight": "2",
+                        "conditionIdDay": "2",
+                        "moonrise": 1790507100000,
+                        "predictDate": 1790438400000,
+                        "moonset": 1790464440000,
+                        "windDirDay": {
+                            "code": "东北风",
+                            "name": "微风"
+                        },
+                        "tempDay": "25",
+                        "windSpeedNight": "2.4",
+                        "humidity": "81",
+                        "windLevelDay": "2"
+                    },
+                    {
+                        "pop": "0",
+                        "conditionNight": "阴",
+                        "windDegreesNight": "180",
+                        "updateTime": 1789337364000,
+                        "conditionDay": "阴",
+                        "windSpeedDay": "2.4",
+                        "sunset": 1790592840000,
+                        "conditionIdNight": "2",
+                        "windDegreesDay": "225",
+                        "tempNight": "19",
+                        "moonPhase": "WaningGibbous",
+                        "windDirNight": {
+                            "code": "南风",
+                            "name": "微风"
+                        },
+                        "sunrise": 1790549700000,
+                        "windLevelNight": "2",
+                        "conditionIdDay": "2",
+                        "moonrise": 1790595480000,
+                        "predictDate": 1790524800000,
+                        "moonset": 1790554620000,
+                        "windDirDay": {
+                            "code": "西南风",
+                            "name": "微风"
+                        },
+                        "tempDay": "23",
+                        "windSpeedNight": "2.4",
+                        "humidity": "82",
+                        "windLevelDay": "2"
+                    }
+                ],
+                "aqiForecastResponse": [
+                    {
+                        "value": 23,
+                        "publishTime": 1789228800000,
+                        "date": 1789228800000
+                    },
+                    {
+                        "value": 30,
+                        "publishTime": 1789347600000,
+                        "date": 1789315200000
+                    },
+                    {
+                        "value": 36,
+                        "publishTime": 1789347600000,
+                        "date": 1789401600000
+                    },
+                    {
+                        "value": 32,
+                        "publishTime": 1789344000000,
+                        "date": 1789488000000
+                    },
+                    {
+                        "value": 41,
+                        "publishTime": 1789344000000,
+                        "date": 1789574400000
+                    },
+                    {
+                        "value": 39,
+                        "publishTime": 1789344000000,
+                        "date": 1789660800000
+                    },
+                    {
+                        "value": 47,
+                        "publishTime": 1789344000000,
+                        "date": 1789747200000
+                    }
+                ],
+                "condition": {
+                    "uvi": "1",
+                    "tips": "冷热适宜，感觉很舒适。",
+                    "windLevel": "1",
+                    "pressure": "967",
+                    "sunSet": 1789384260000,
+                    "vis": "21000",
+                    "sunRise": 1789339620000,
+                    "icon": "2",
+                    "windDegrees": "315",
+                    "conditionId": "13",
+                    "updateTime": 1789352108000,
+                    "condition": "阴",
+                    "windSpeed": "0.3",
+                    "temp": "20",
+                    "realFeel": "21",
+                    "humidity": "76",
+                    "windDir": {
+                        "code": "微风",
+                        "name": "西北风"
+                    }
+                },
+                "alert": [],
+                "limit": [
+                    {
+                        "prompt": "W",
+                        "date": "2026-09-13"
+                    },
+                    {
+                        "prompt": "16",
+                        "date": "2026-09-14"
+                    },
+                    {
+                        "prompt": "27",
+                        "date": "2026-09-15"
+                    },
+                    {
+                        "prompt": "38",
+                        "date": "2026-09-16"
+                    },
+                    {
+                        "prompt": "49",
+                        "date": "2026-09-17"
+                    },
+                    {
+                        "prompt": "50",
+                        "date": "2026-09-18"
+                    },
+                    {
+                        "prompt": "W",
+                        "date": "2026-09-19"
+                    },
+                    {
+                        "prompt": "W",
+                        "date": "2026-09-20"
+                    },
+                    {
+                        "prompt": "16",
+                        "date": "2026-09-21"
+                    },
+                    {
+                        "prompt": "27",
+                        "date": "2026-09-22"
+                    },
+                    {
+                        "prompt": "38",
+                        "date": "2026-09-23"
+                    },
+                    {
+                        "prompt": "49",
+                        "date": "2026-09-24"
+                    },
+                    {
+                        "prompt": "W",
+                        "date": "2026-09-25"
+                    },
+                    {
+                        "prompt": "W",
+                        "date": "2026-09-26"
+                    },
+                    {
+                        "prompt": "W",
+                        "date": "2026-09-27"
+                    },
+                    {
+                        "prompt": "16",
+                        "date": "2026-09-28"
+                    }
+                ],
+                "currentLimit": {
+                    "prompt": "16",
+                    "date": "2026-09-14"
+                },
+                "liveIndex": [
+                    {
+                        "status": "弱",
+                        "level": "2",
+                        "code": {
+                            "code": "21",
+                            "name": "紫外线"
+                        },
+                        "updateTime": 1789348923000,
+                        "day": 1789315200000,
+                        "desc": "辐射较弱，请涂擦SPF12-15、PA+护肤品。"
+                    },
+                    {
+                        "status": "不易发",
+                        "level": "2",
+                        "code": {
+                            "code": "32",
+                            "name": "息斯敏过敏指数"
+                        },
+                        "updateTime": 1789348923000,
+                        "day": 1789315200000,
+                        "desc": "未来一段时间的气象条件下，不利于主要过敏源的飞散，出现过敏症状的可能性较小。"
+                    },
+                    {
+                        "status": "易发",
+                        "level": "4",
+                        "code": {
+                            "code": "12",
+                            "name": "感冒"
+                        },
+                        "updateTime": 1789348923000,
+                        "day": 1789315200000,
+                        "desc": "感冒容易发生，少去人群密集的场所有利于降低感冒的几率。"
+                    },
+                    {
+                        "status": "适宜",
+                        "level": "1",
+                        "code": {
+                            "code": "26",
+                            "name": "运动"
+                        },
+                        "updateTime": 1789348923000,
+                        "day": 1789315200000,
+                        "desc": "天气较好，且紫外线辐射不强，适宜户外运动。"
+                    },
+                    {
+                        "status": "控油",
+                        "level": "10",
+                        "code": {
+                            "code": "7",
+                            "name": "化妆"
+                        },
+                        "updateTime": 1789348923000,
+                        "day": 1789315200000,
+                        "desc": "建议用露质面霜打底，水质无油粉底霜，透明粉饼，粉质胭脂。"
+                    },
+                    {
+                        "status": "舒适",
+                        "level": "3",
+                        "code": {
+                            "code": "20",
+                            "name": "穿衣指数"
+                        },
+                        "updateTime": 1789348923000,
+                        "day": 1789315200000,
+                        "desc": "白天温度适中，但早晚凉，易穿脱的便携外套很实用。"
+                    },
+                    {
+                        "status": "较适宜",
+                        "level": "3",
+                        "code": {
+                            "code": "28",
+                            "name": "钓鱼"
+                        },
+                        "updateTime": 1789348923000,
+                        "day": 1789315200000,
+                        "desc": "温差稍大，鱼儿不太活跃，可能会对钓鱼产生影响。"
+                    },
+                    {
+                        "status": "一般",
+                        "level": "3",
+                        "code": {
+                            "code": "5",
+                            "name": "交通"
+                        },
+                        "updateTime": 1789348923000,
+                        "day": 1789315200000,
+                        "desc": "有降水，路面湿滑，刹车距离延长，事故易发期，注意车距，务必小心驾驶。"
+                    },
+                    {
+                        "status": "一般",
+                        "level": "3",
+                        "code": {
+                            "code": "14",
+                            "name": "旅游"
+                        },
+                        "updateTime": 1789348923000,
+                        "day": 1789315200000,
+                        "desc": "有阵雨，温度适宜，在细雨中游玩别有一番情调，可不要错过机会呦！但记得出门要携带雨具。"
+                    },
+                    {
+                        "status": "不宜",
+                        "level": "10",
+                        "code": {
+                            "code": "17",
+                            "name": "洗车"
+                        },
+                        "updateTime": 1789348923000,
+                        "day": 1789315200000,
+                        "desc": "不宜洗车，未来24小时内有雨，如果在此期间洗车，雨水和路上的泥水可能会再次弄脏您的爱车。"
+                    },
+                    {
+                        "status": "优",
+                        "level": "1",
+                        "code": {
+                            "code": "18",
+                            "name": "空气污染扩散条件"
+                        },
+                        "updateTime": 1789348923000,
+                        "day": 1789315200000,
+                        "desc": "气象条件非常有利于空气污染物稀释、扩散和清除，可在室外正常活动。"
+                    }
+                ],
+                "aqi": {
+                    "pm25C": "21.0",
+                    "pm10": "28",
+                    "co": "8",
+                    "rank": "315/737",
+                    "o3C": "31.0",
+                    "coC": "0.8",
+                    "no2": "11",
+                    "so2": "2",
+                    "updateTime": 1789347600000,
+                    "aqiValueText": "优",
+                    "so2C": "6.0",
+                    "aqiValue": "30",
+                    "cityName": "天堂岛海洋乐园",
+                    "pm10C": "28.0",
+                    "no2C": "22.0",
+                    "pm25": "30",
+                    "o3": "10"
+                },
+                "todayWeather": "阴转雷阵雨",
+                "city": {
+                    "secondaryName": "成都市",
+                    "ianaTimeZone": "Asia/Shanghai",
+                    "cityId": "3363",
+                    "counName": "中国",
+                    "name": "天堂岛海洋乐园",
+                    "provinceName": "四川省"
+                }
+            }
+        }
+    }
+}

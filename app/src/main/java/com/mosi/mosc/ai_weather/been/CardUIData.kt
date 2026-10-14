@@ -1,6 +1,5 @@
 package com.mosi.mosc.ai_weather.been
 
-
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
@@ -10,9 +9,11 @@ data class CardUIData(
     val baseInfo: CardBaseInfo,
     // 选择性信息
     val extraInfo: List<CardExtraInfo>,
-    // 预报信息
+    // 天气颗粒度
+    val granularity: String,
+    // 预报信息S
     val forecastInfo: List<CardForecastInfo>,
     // 警报信息
-    val warnInfo: CardWarnInfo
+    val warnInfo: List<CardWarnInfo>
 ): Parcelable {
 }

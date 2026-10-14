@@ -1,5 +1,6 @@
 package com.mosi.mosc.ai_weather.been
 
+import android.R
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
@@ -16,5 +17,8 @@ data class AIBaseBeen(
     // 天气对象和对应时间
     val slots: SlotsBeen,
     // 天气接口返回的完整  按照 `slots` 抽取数据
-    val bizData: DataBeen
+    val bizData: DataBeen,
+    // tts 播报内容
+    val content: String,
+    val isFinal: Boolean,
 ): Parcelable

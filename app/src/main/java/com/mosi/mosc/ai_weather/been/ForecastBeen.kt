@@ -5,8 +5,10 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ForecastBeen(
+    //白天天气现象
     val conditionDay: String,
     val conditionIdDay: String,
+    //夜晚天气现象
     val conditionNight: String,
     val conditionIdNight: String,
     val moonset: String,
@@ -15,11 +17,17 @@ data class ForecastBeen(
     val sunrise: Long,
     val sunset: Long,
     val predictDate: Long,
+    // 白天风信息
     val windDirDay: WindDirBeen,
+    // 白天风速
     val windSpeedDay: String,
+    // 白天风等级
     val windLevelDay: String,
+    // 夜晚风信息
     val windDirNight: WindDirBeen,
+    // 夜晚风速
     val windSpeedNight: String,
+    // 夜晚风等级
     val windLevelNight: String,
     val updateTime: Long,
     val humidity: String,
@@ -27,10 +35,10 @@ data class ForecastBeen(
     val tempNight: String,
     val windDegreesDay: String,
     val windDegreesNight: String,
-    val maxTemp: String?,
-    val minTemp: String?,
-    val realFeelTempMax: String?,
-    val realFeelTempMin: String?,
+    val maxTemp: String,
+    val minTemp: String,
+    val realFeelTempMax: String,
+    val realFeelTempMin: String,
     val source: String,
     val windGustDir: String,
     val rain: String,

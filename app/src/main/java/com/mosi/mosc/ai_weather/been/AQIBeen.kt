@@ -3,6 +3,7 @@ package com.mosi.mosc.ai_weather.been
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
+
 @Parcelize
 data class AQIBeen(
     val updateTime: Long,
@@ -24,4 +25,4 @@ data class AQIBeen(
     val so2: String,
     val lv: String?,
     val aqiDesc: String?,
-):Parcelable
+): Parcelable

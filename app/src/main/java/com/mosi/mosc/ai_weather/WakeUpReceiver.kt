@@ -12,7 +12,7 @@ class WakeUpReceiver : BroadcastReceiver() {
     }
 
     override fun onReceive(context: Context, intent: Intent) {
-        Log.d(TAG, "收到唤醒广播 action=${intent.action}, App 已脱离 stopped 状态")
+        Log.d(TAG, "收到广播 action=${intent.action}")
 
         // 其实这里什么都不做也行 —— 只要 onReceive 被调用，
         // 系统就已经把 App 从 stopped 状态拉起来了。
@@ -22,10 +22,11 @@ class WakeUpReceiver : BroadcastReceiver() {
         // 让进程 "稳住" 一会儿。
         try {
             val serviceIntent = Intent(context, WeatherAIDLServices::class.java)
+            serviceIntent.setAction(intent.action)
             context.startService(serviceIntent)
-            Log.d(TAG, "已主动 startService，保证进程存活")
+            Log.d(TAG, "startService WeatherAIDLServices with intent: $serviceIntent")
         } catch (e: Exception) {
-            Log.e(TAG, "startService 失败: ${e.message}")
+            Log.e(TAG, "startService WeatherAIDLServices fail: ${e.message}")
         }
     }
 }

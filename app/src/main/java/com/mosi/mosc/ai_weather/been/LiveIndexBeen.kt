@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class LiveIndexBeen(
-    val code:WindDirBeen,
+    val code: WindDirBeen,
     val level: String,
     val day: Long,
     val updateTime: Long,

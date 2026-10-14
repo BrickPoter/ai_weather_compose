@@ -2,6 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="com.fawvw.aisds.permission.BIND_SPEECH_SERVICE" />
+    <uses-permission android:name="com.fawvw.aisds.permission.BIND_VOICE_SETTING_SERVICE" />
+    <uses-permission android:name="com.fawvw.aisds.permission.BIND_TTS_SERVICE" />
+    <uses-permission android:name="com.fawvw.aisds.permission.BIND_VVS_SERVICE" />
+
+    <queries>
+        <package android:name="com.fawvw.aisds" />
+        <package android:name="com.fawvw.tts" />
+        <package android:name="com.fawvw.aisds.vvs" />
+    </queries>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -9,6 +20,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AI_weather">
+
+
         <service
             android:name="com.mosi.mosc.ai_weather.WeatherAIDLServices"
             android:enabled="true"
@@ -20,7 +33,8 @@
 
         <receiver android:name=".WakeUpReceiver" android:exported="true">
             <intent-filter>
-                <action android:name="com.mosi.mosc.ai_weather.WAKE_UP" />
+                <action android:name="com.mosi.mosc.ai_weather.REGISTER" />
+                <action android:name="com.mosi.mosc.ai_weather.UNREGISTER" />
             </intent-filter>
         </receiver>
     </application>

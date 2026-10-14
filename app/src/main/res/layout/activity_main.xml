@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/bg_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="#FFFFFF"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#20EEEEEE"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_sw_activity"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:backgroundTint="#C72E2E"
+                android:text="切换"
+                app:icon="@android:drawable/btn_star_big_on"
+                app:iconTint="#FFEB3B" />
+
+            <Button
+                android:id="@+id/btn_re_activity"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:backgroundTint="#D31818"
+                android:text="重复"
+                app:icon="@android:drawable/btn_star_big_on"
+                app:iconTint="#15DC1D" />
+
+            <Button
+                android:id="@+id/btn_cl_activity"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#D31818"
+                android:text="关闭"
+                app:icon="@android:drawable/btn_star_big_on"
+                app:iconTint="#00BCD4" />
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_start_music"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="运行服务" />
+
+            <Button
+                android:id="@+id/btn_start_foreground_music"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="前台运行服务" />
+
+            <Button
+                android:id="@+id/btn_stop_music"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="停止服务" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_leave_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="#80000000"
+            android:padding="8dp"
+            android:text="离开时间将显示在这里"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_reg_speech"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="注册SPEECH" />
+
+            <Button
+                android:id="@+id/btn_unreg_speech"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="注销SPEECH" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_aidl_luck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="AIDL测运气" />
+
+            <Button
+                android:id="@+id/btn_aidl_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="AIDL改股价" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="#80000000"
+            android:padding="8dp"
+            android:text="状态..."
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_broadcast_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="#80000000"
+            android:padding="8dp"
+            android:text="广播..."
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</FrameLayout>
