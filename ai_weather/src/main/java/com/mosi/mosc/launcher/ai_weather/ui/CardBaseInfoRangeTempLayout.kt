@@ -20,8 +20,8 @@ ConstraintLayout(context, attributeSet){
         condition: String?,
         icon: String?
     ) {
-        binding.textHighestTemp.text = "${highestTemp}°"
-        binding.textLowestTemp.text = "/${lowestTemp}°"
+        binding.textHighestTemp.text = highestTemp
+        binding.textLowestTemp.text = lowestTemp
         binding.textWeatherStatus.text = condition
         val imageId = Utils.getWeatherIconResourceId(icon)
         binding.imageWeather.setImageResource(imageId)

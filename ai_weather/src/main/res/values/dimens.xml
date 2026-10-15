@@ -7,6 +7,8 @@
     <dimen name="FONT_Title_1_h">136dp</dimen>
     <dimen name="FONT_Title_2">128dp</dimen>
     <dimen name="FONT_Title_2_h">160dp</dimen>
+    <dimen name="FONT_Title_3">40dp</dimen>
+    <dimen name="FONT_Title_3_h">60dp</dimen>
     <dimen name="FONT_Content_1">34dp</dimen>
     <dimen name="FONT_Content_1_h">50dp</dimen>
     <dimen name="FONT_Content_1_Small">28dp</dimen>

@@ -4,27 +4,54 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:text="@string/highestTemp"
-        android:id="@+id/text_highest_temp"
+    <LinearLayout
+        android:id="@+id/frame_high_temp"
         android:layout_width="wrap_content"
-            android:layout_height="136dp"
-        style="@style/Title_1_Regular"
-        android:alpha="0.9"
-        android:textColor="@color/Fill_Always_Dark"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent">
 
-    <TextView
-        android:text="@string/lowestTemp"
-        android:id="@+id/text_lowest_temp"
+        <TextView
+            android:text="@string/highestTemp"
+            android:id="@+id/text_highest_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="136dp"
+            style="@style/Title_1_Regular"
+            android:alpha="0.9"
+            android:textColor="@color/Fill_Always_Dark"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/symbol_temperature"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="4dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/frame_low_temp"
         android:layout_width="wrap_content"
         android:layout_height="136dp"
-        style="@style/Title_1_Regular"
-        android:alpha="0.6"
-        android:textColor="@color/Fill_Always_Dark"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/text_highest_temp"/>
+        app:layout_constraintStart_toEndOf="@id/frame_high_temp">
+
+        <TextView
+            android:text="@string/lowestTemp"
+            android:id="@+id/text_lowest_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="136dp"
+            style="@style/Title_1_Regular"
+            android:alpha="0.6"
+            android:textColor="@color/Fill_Always_Dark"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/symbol_temperature"
+            android:alpha="0.6"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="4dp"/>
+    </LinearLayout>
 
     <TextView
         android:text="@string/condition"
@@ -34,8 +61,8 @@
         style="@style/Content_2_Regular"
         android:alpha="0.6"
         android:textColor="@color/Fill_Always_Dark"
-        app:layout_constraintStart_toStartOf="@id/text_highest_temp"
-        app:layout_constraintTop_toBottomOf="@id/text_highest_temp"/>
+        app:layout_constraintStart_toStartOf="@id/frame_high_temp"
+        app:layout_constraintTop_toBottomOf="@id/frame_high_temp"/>
 
     <ImageView
         android:src="@drawable/clear_cloudy_day"

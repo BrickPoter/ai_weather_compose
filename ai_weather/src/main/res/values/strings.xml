@@ -1,6 +1,6 @@
 <resources>
-    <string name="highestTemp">28°</string>
-    <string name="lowestTemp">/20°</string>
+    <string name="highestTemp">28</string>
+    <string name="lowestTemp">/20</string>
     <string name="condition">晴转多云</string>
     <string name="conditionDescription">This is a condition icon</string>
     <string name="alert_title">恶劣天气预警</string>
