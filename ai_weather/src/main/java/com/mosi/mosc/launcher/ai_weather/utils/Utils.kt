@@ -11,20 +11,11 @@ object Utils {
         return px.toInt()
     }
 
-    fun getAlertImageResourceId(level: Int): Int {
-        return when(level) {
-            1 -> R.drawable.alert_yellow
-            2 -> R.drawable.alert_orange
-            3 -> R.drawable.alert_red
-            else -> R.drawable.alert_blue
-        }
-    }
-
     fun getAlertImageResourceId(str: String): Int {
         return when(str) {
-            "黄色预警" -> R.drawable.alert_yellow
-            "橙色预警" -> R.drawable.alert_orange
-            "红色预警" -> R.drawable.alert_red
+            "黄色" -> R.drawable.alert_yellow
+            "橙色" -> R.drawable.alert_orange
+            "红色" -> R.drawable.alert_red
             else -> R.drawable.alert_blue
         }
     }

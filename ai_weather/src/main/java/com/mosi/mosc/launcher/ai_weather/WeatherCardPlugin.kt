@@ -77,15 +77,16 @@ class WeatherCardPlugin : ICardPlugin {
 
     private fun onWeatherData(uiDataList: List<CardUIData>?) {
         if (uiDataList.isNullOrEmpty()) {
-            Log.w(TAG, "数据为空：释放内容并收起卡片")
-            repository.update(emptyList())
-            weatherCard?.onDataChanged()
-            clearShowLatch()
-            try {
-                mCardManager?.requestHide(KEY_CARD_ID)
-            } catch (e: Exception) {
-                Log.e(TAG, "requestHide failed", e)
-            }
+            Log.w(TAG, "数据为空：卡片内容不更新")
+//            Log.w(TAG, "数据为空：释放内容并收起卡片")
+//            repository.update(emptyList())
+//            weatherCard?.onDataChanged()
+//            clearShowLatch()
+//            try {
+//                mCardManager?.requestHide(KEY_CARD_ID)
+//            } catch (e: Exception) {
+//                Log.e(TAG, "requestHide failed", e)
+//            }
             return
         }
 

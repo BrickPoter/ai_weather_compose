@@ -64,6 +64,20 @@ class WarnInfoRecycler(context: Context, attrs: AttributeSet) :
 
         var onItemClick: ((CardWarnInfo) -> Unit)? = null
 
+        override fun onViewAttachedToWindow(holder: Holder) {
+            super.onViewAttachedToWindow(holder)
+
+            // Item 进入 RecyclerView 显示区域，预警文字超长滚动
+            holder.startMarquee()
+        }
+
+        override fun onViewDetachedFromWindow(holder: Holder) {
+            // Item 离开显示区域，停止滚动
+            holder.stopMarquee()
+
+            super.onViewDetachedFromWindow(holder)
+        }
+
         override fun onCreateViewHolder(
             parent: ViewGroup,
             viewType: Int
@@ -95,6 +109,23 @@ class WarnInfoRecycler(context: Context, attrs: AttributeSet) :
                 if (data.title == null) return
                 binding.itemImage.setImageResource(Utils.getAlertImageResourceId(data.title))
                 binding.itemText.text = data.content
+                binding.itemText.isSelected = false
+            }
+
+            fun startMarquee() {
+                binding.itemText.post {
+                    // 确认 View 仍然处于显示状态
+                    if (itemView.isAttachedToWindow &&
+                        itemView.isShown &&
+                        binding.itemText.width > 0
+                    ) {
+                        binding.itemText.isSelected = true
+                    }
+                }
+            }
+
+            fun stopMarquee() {
+                binding.itemText.isSelected = false
             }
         }
 
