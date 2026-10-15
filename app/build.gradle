@@ -41,7 +41,7 @@ android {
 dependencies {
     implementation libs.androidx.activity.ktx
     implementation libs.androidx.constraintlayout
-    implementation libs.androidx.monitor
+//    implementation libs.androidx.monitor
     compileOnly fileTree(dir: 'libs', include: ['*.aar', '*.jar'])
 
     implementation libs.retrofit.gson.converter
@@ -64,5 +64,5 @@ dependencies {
     implementation(files("libs/DataCenterSdk-v1.0.jar"))
 
     // speech-sdk 内部 StringExtKt 依赖 SnakeYAML（本地 jar 不会带传递依赖）
-    implementation libs.snakeyaml
+//    implementation libs.snakeyaml
 }

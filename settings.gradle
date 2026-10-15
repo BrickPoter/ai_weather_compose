@@ -25,3 +25,8 @@ dependencyResolutionManagement {
 rootProject.name = "AI_weather"
 include ':app'
 include ':ai_weather'
+
+// 用于插件端调试
+if (file('uidemo').exists()) {
+    include ':uidemo'
+}
