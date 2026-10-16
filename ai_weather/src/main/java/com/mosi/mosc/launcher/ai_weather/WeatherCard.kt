@@ -11,7 +11,7 @@ import com.fawvw.hmi.ailauncher.pluginlib.CardPriority
 import com.fawvw.hmi.ailauncher.pluginlib.CardSize
 import com.fawvw.hmi.ailauncher.pluginlib.ICard
 import com.fawvw.hmi.ailauncher.pluginlib.VisibleState
-import com.mosi.mosc.ai_weather.been.CardUIData
+import com.mosi.mosc.ai_weather.weather_srv.CardUIData
 import com.mosi.mosc.launcher.ai_weather.enums.WeatherDisplayMode
 import com.mosi.mosc.launcher.ai_weather.view.BaseLargeWeatherCardView
 import com.mosi.mosc.launcher.ai_weather.view.BaseWeatherCardView

@@ -3,7 +3,7 @@ package com.mosi.mosc.launcher.ai_weather.view
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import com.mosi.mosc.ai_weather.been.CardUIData
+import com.mosi.mosc.ai_weather.weather_srv.CardUIData
 
 abstract class WeatherCardView(protected val context: Context){
 

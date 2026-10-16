@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.mosi.mosc.ai_weather.been.CardWarnInfo
+import com.mosi.mosc.ai_weather.weather_srv.CardWarnInfo
 import com.mosi.mosc.launcher.ai_weather.databinding.LayoutAlertInfoItemBinding
 import com.mosi.mosc.launcher.ai_weather.utils.Utils
 
@@ -106,8 +106,8 @@ class WarnInfoRecycler(context: Context, attrs: AttributeSet) :
             ViewHolder(binding.root) {
 
             fun bind(data: CardWarnInfo) {
-                if (data.title == null) return
-                binding.itemImage.setImageResource(Utils.getAlertImageResourceId(data.title))
+                val title = data.title ?: return
+                binding.itemImage.setImageResource(Utils.getAlertImageResourceId(title))
                 binding.itemText.text = data.content
                 binding.itemText.isSelected = false
             }

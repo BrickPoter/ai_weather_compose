@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.mosi.mosc.ai_weather.been.CardExtraInfo
+import com.mosi.mosc.ai_weather.weather_srv.CardExtraInfo
 import com.mosi.mosc.launcher.ai_weather.databinding.LayoutExtraInfoItemInlineBinding
 import com.mosi.mosc.launcher.ai_weather.databinding.LayoutExtraInfoItemStackBinding
 import com.mosi.mosc.launcher.ai_weather.utils.Utils

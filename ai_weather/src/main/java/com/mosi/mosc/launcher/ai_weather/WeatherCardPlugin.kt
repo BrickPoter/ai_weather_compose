@@ -18,9 +18,9 @@ import com.fawvw.hmi.ailauncher.pluginlib.ICardPlugin
 import com.fawvw.hmi.ailauncher.pluginlib.TargetScreen
 import com.fawvw.hmi.ailauncher.pluginlib.TriggerSource
 import com.fawvw.hmi.ailauncher.pluginlib.VisibleState
-import com.mosi.mosc.ai_weather.been.CardUIData
-import com.mosi.mosc.ai_weather.been.IAIDLWeatherCallback
-import com.mosi.mosc.ai_weather.been.IAIDLWeatherService
+import com.mosi.mosc.ai_weather.weather_srv.CardUIData
+import com.mosi.mosc.ai_weather.weather_srv.IAIDLWeatherCallback
+import com.mosi.mosc.ai_weather.weather_srv.IAIDLWeatherService
 import com.mosi.mosc.launcher.ai_weather.enums.WeatherDisplayMode
 
 class WeatherCardPlugin : ICardPlugin {

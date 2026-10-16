@@ -1,6 +1,6 @@
 package com.mosi.mosc.launcher.ai_weather
 
-import com.mosi.mosc.ai_weather.been.CardUIData
+import com.mosi.mosc.ai_weather.weather_srv.CardUIData
 import com.mosi.mosc.launcher.ai_weather.enums.WeatherDisplayMode
 
 class WeatherRepository {

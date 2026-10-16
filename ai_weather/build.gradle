@@ -28,8 +28,10 @@ android {
 }
 
 dependencies {
+//    implementation(files("libs.weather_srv"))
+    implementation fileTree(dir: 'libs', includes: ['*.jar'])
     implementation libs.cronet
-    compileOnly fileTree(dir: 'libs', include: ['*.aar', '*.jar'])
+    compileOnly fileTree(dir: 'libs', include: ['*.aar'])
 
     implementation libs.glide
     implementation libs.androidx.appcompat

@@ -41,8 +41,9 @@ android {
 dependencies {
     implementation libs.androidx.activity.ktx
     implementation libs.androidx.constraintlayout
+    implementation fileTree(dir: 'libs', includes: ['*.jar'])
 //    implementation libs.androidx.monitor
-    compileOnly fileTree(dir: 'libs', include: ['*.aar', '*.jar'])
+    compileOnly fileTree(dir: 'libs', include: ['*.aar'])
 
     implementation libs.retrofit.gson.converter
     implementation libs.kotlinx.coroutines.core

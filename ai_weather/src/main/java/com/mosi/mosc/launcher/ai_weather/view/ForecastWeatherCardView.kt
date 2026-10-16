@@ -3,7 +3,7 @@ package com.mosi.mosc.launcher.ai_weather.view
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import com.mosi.mosc.ai_weather.been.CardUIData
+import com.mosi.mosc.ai_weather.weather_srv.CardUIData
 import com.mosi.mosc.launcher.ai_weather.databinding.LayoutWeatherCardForecastBinding
 import com.mosi.mosc.launcher.ai_weather.utils.Utils
 

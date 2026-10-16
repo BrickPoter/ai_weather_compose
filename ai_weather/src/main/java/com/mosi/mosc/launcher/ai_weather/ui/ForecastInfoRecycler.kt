@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.mosi.mosc.ai_weather.been.CardForecastInfo
+import com.mosi.mosc.ai_weather.weather_srv.CardForecastInfo
 import com.mosi.mosc.launcher.ai_weather.databinding.LayoutForecastItemBinding
 import com.mosi.mosc.launcher.ai_weather.utils.Utils
 
@@ -90,8 +90,9 @@ class ForecastInfoRecycler(context: Context, attributeSet: AttributeSet):
                     itemTextTemp.text = "${data.highTemp}°"
                 }
                 itemTextCondition.text = data.condition
-                if (!data.probability.isNullOrEmpty()) {
-                    val probability = data.probability
+                val probability = data.probability
+                if (!probability.isNullOrEmpty()) {
+                    val probability = probability
                         .replace("%", "")
                         .trim()
                         .toDoubleOrNull()

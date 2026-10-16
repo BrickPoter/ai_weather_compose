@@ -1,8 +1,12 @@
 package com.mosi.mosc.launcher.ai_weather.utils
 
 import android.content.Context
+import androidx.compose.ui.graphics.Color
 import com.mosi.mosc.launcher.ai_weather.R
 import com.mosi.mosc.launcher.ai_weather.enums.WeatherType
+import com.mosi.mosc.launcher.ai_weather.ui.theme.AlertBg
+import com.mosi.mosc.launcher.ai_weather.ui.theme.AlertOrangeBg
+import com.mosi.mosc.launcher.ai_weather.ui.theme.AlertRedBg
 
 object Utils {
     fun dp2px(context: Context, dp: Int): Int {
@@ -17,6 +21,14 @@ object Utils {
             "橙色" -> R.drawable.alert_orange
             "红色" -> R.drawable.alert_red
             else -> R.drawable.alert_blue
+        }
+    }
+
+    fun getAlertBgColor(str: String?): Color {
+        return when(str) {
+            "红色", "红色预警" -> AlertRedBg
+            "橙色", "橙色预警","黄色", "黄色预警" -> AlertOrangeBg
+            else -> AlertBg
         }
     }
 
