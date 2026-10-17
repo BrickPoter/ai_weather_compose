@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
-    <!-- 宽高不是写在shape里，shape是背景，宽高在View上定义 -->
-    <corners android:radius="40dp"/>
-    <!-- opacity=1 代表不透明，这里默认solid颜色你可以自己替换 -->
-    <solid android:color="#1F4A83FF"/>
-</shape>

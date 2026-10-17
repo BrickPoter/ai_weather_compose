@@ -5,7 +5,6 @@ import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -14,11 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.view.doOnLayout
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LifecycleRegistry
-import androidx.lifecycle.findViewTreeLifecycleOwner
-import androidx.lifecycle.setViewTreeLifecycleOwner
 import com.fawvw.hmi.ailauncher.pluginlib.BusinessType
 import com.fawvw.hmi.ailauncher.pluginlib.CardPriority
 import com.fawvw.hmi.ailauncher.pluginlib.CardSize
@@ -34,9 +28,7 @@ import com.mosi.mosc.launcher.ai_weather.compose.cardview.RealtimeCardView
 import com.mosi.mosc.launcher.ai_weather.enums.WeatherDisplayMode
 
 /**
- * [WeatherCard] 的 Compose 版本。
- *
- * 宿主拿到的始终是同一个 [container]，卡片模式、数据和可见性都通过 Compose 状态原地更新，
+ * 宿主拿到的始终是同一个 [composeView]，卡片模式、数据和可见性都通过 Compose 状态原地更新，
  * 不再像 View 版本那样创建/移除具体的 WeatherCardView。
  */
 class ComposeWeatherCard(
@@ -47,28 +39,20 @@ class ComposeWeatherCard(
 
     companion object {
         const val TAG = "ComposeWeatherCard"
-        private val SUPPORTED_SIZES = listOf(CardSize.ONE_FOUR, CardSize.ONE_EIGHT)
+        val SUPPORTED_SIZES = listOf(CardSize.ONE_FOUR, CardSize.ONE_EIGHT)
         const val KEY_CARD_ID = "composeWeather_1"
     }
-
-    /** 交给宿主的稳定 View；卡片生命周期内不替换。 */
-    private val container = FrameLayout(context)
     private val composeView = ComposeView(context)
-    private val uiState = mutableStateOf(CardUiState())
-
-    /**
-     * 部分 launcher 宿主没有给 View 树设置 ViewTreeLifecycleOwner。
-     * 这种情况下由卡片临时把 owner 挂到根 View 上，保证 ComposeView 可以创建 Recomposer。
-     */
-    private val fallbackLifecycleOwner = CardLifecycleOwner()
-    private var fallbackLifecycleRoot: View? = null
+    private val uiState = mutableStateOf(CardUIState())
 
     /** 宿主最后一次传入的槽位尺寸；null = 宿主还没取过 View。 */
+    @Volatile
     private var hostSize: CardSize? = null
 
-    /** 是否可见，由 onVisibleStateChange 维护。 */
+    /** 宿主实际用来承载卡片的槽位尺寸；null = getView 还没调用。 */
     @Volatile
-    private var visible = false
+    var viewCardSize: CardSize? = null
+        private set
 
     /** 内容是否已释放（HIDE / release 后为 true，getView / SHOW 后恢复）。 */
     @Volatile
@@ -84,32 +68,21 @@ class ComposeWeatherCard(
     var currentMode: WeatherDisplayMode = WeatherDisplayMode.BASE
         private set
 
+    /** 当前有可见的 Compose 内容，可以直接原地刷新。 */
+    val canRefreshInPlace: Boolean
+        get() = !contentReleased && viewCardSize != null
+
     init {
         Log.d(TAG, "ComposeWeatherCard init")
 
-        container.addView(
-            composeView,
-            FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
+        composeView.layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
         )
         composeView.visibility = View.GONE
         composeView.setContent {
             ComposeWeatherCardContent(uiState.value)
         }
-
-        container.addOnAttachStateChangeListener(
-            object : View.OnAttachStateChangeListener {
-                override fun onViewAttachedToWindow(v: View) {
-                    ensureLifecycleOwner()
-                }
-
-                override fun onViewDetachedFromWindow(v: View) {
-                    // ComposeView 默认在 detach 时释放 composition，此处无需额外处理。
-                }
-            }
-        )
     }
 
     override fun getCardId() = cardId
@@ -119,11 +92,11 @@ class ComposeWeatherCard(
     override fun getView(cardSize: CardSize): View {
         Log.d(TAG, "getView() Called, cardSize = $cardSize")
         hostSize = cardSize
+        viewCardSize = cardSize
         contentReleased = false
-        ensureLifecycleOwner()
         render(repository.currentData)
 
-        container.doOnLayout { v ->
+        composeView.doOnLayout { v ->
             val dm = v.resources.displayMetrics
             Log.d(
                 TAG,
@@ -134,7 +107,7 @@ class ComposeWeatherCard(
                         "screen=${dm.widthPixels}x${dm.heightPixels}px"
             )
         }
-        return container
+        return composeView
     }
 
     override fun getCardSize(): CardSize = dataMode.cardSize
@@ -144,7 +117,8 @@ class ComposeWeatherCard(
     override fun getBusinessType(): BusinessType = BusinessType.WEATHER
 
     override fun onRefresh() {
-        if (!visible) return
+        // 当前 launcher 不回调 onVisibleStateChange，getView 后即视为有可刷新内容。
+        if (contentReleased || hostSize == null) return
         repository.requestRefresh()
         render(repository.currentData)
     }
@@ -152,26 +126,20 @@ class ComposeWeatherCard(
     override fun onVisibleStateChange(state: VisibleState) {
         when (state) {
             VisibleState.SHOW -> {
-                visible = true
                 contentReleased = false
                 onMain {
-                    ensureLifecycleOwner()
-                    fallbackLifecycleOwner.resume()
                     renderNow(repository.currentData)
                 }
             }
 
             VisibleState.HIDE -> {
-                visible = false
                 contentReleased = true
                 onMain {
                     // 与 WeatherCard.releaseContent() 对齐：隐藏时释放 Compose 内容资源，
                     // 但保留 container 和 ComposeView，下一次 SHOW 直接重新组合。
                     composeView.disposeComposition()
                     composeView.visibility = View.GONE
-                    fallbackLifecycleOwner.pause()
                     uiState.value = uiState.value.copy(visible = false)
-                    releaseFallbackLifecycleOwner()
                 }
             }
         }
@@ -179,26 +147,44 @@ class ComposeWeatherCard(
 
     /** 宿主 destroyCard 时调用。 */
     fun release() {
-        visible = false
         contentReleased = true
         hostSize = null
+        viewCardSize = null
         onMain {
             composeView.disposeComposition()
             composeView.visibility = View.GONE
-            fallbackLifecycleOwner.pause()
-            uiState.value = CardUiState()
-            releaseFallbackLifecycleOwner()
+            uiState.value = CardUIState()
         }
     }
 
     /** 数据更新：原地刷新。 */
     fun onDataChanged() {
-        dataMode = repository.getDisplayMode()
+        syncDataMode()
         Log.d(TAG, "onDataChanged Called, dataMode=$dataMode, attached=${hostSize != null}")
         if (hostSize != null) {
             render(repository.currentData)
-            container.requestLayout()
+            composeView.requestLayout()
         }
+    }
+
+    /** 只同步数据模式，不触发 Compose 内容切换（等待 launcher 重排槽位时使用）。 */
+    fun syncDataMode() {
+        dataMode = repository.getDisplayMode()
+    }
+
+    /**
+     * 当前槽位能否直接承载 [mode]。
+     *
+     * BASE 在 ONE_FOUR 槽位下会自动渲染成 BASE_LARGE，因此这两种组合不需要重新 requestShow。
+     */
+    fun canDisplayInCurrentSlot(mode: WeatherDisplayMode): Boolean {
+        val currentSize = viewCardSize ?: return false
+        val desiredSize = if (mode == WeatherDisplayMode.BASE && currentSize == CardSize.ONE_FOUR) {
+            CardSize.ONE_FOUR
+        } else {
+            mode.cardSize
+        }
+        return desiredSize == currentSize
     }
 
     private fun render(data: List<CardUIData>?) {
@@ -219,7 +205,7 @@ class ComposeWeatherCard(
         val renderableData = data.orEmpty().toList()
         val canRender = renderableData.isNotEmpty() && displayMode.canRender(renderableData)
         val showContent = !contentReleased && canRender
-        uiState.value = CardUiState(
+        uiState.value = CardUIState(
             mode = displayMode,
             data = if (canRender) renderableData else emptyList(),
             visible = showContent
@@ -227,7 +213,6 @@ class ComposeWeatherCard(
         composeView.visibility = if (showContent) View.VISIBLE else View.GONE
 
         if (showContent) {
-            fallbackLifecycleOwner.resume()
             // GONE -> VISIBLE 时重新触发 ComposeView.onMeasure，确保释放过的 composition 被重建。
             composeView.requestLayout()
         }
@@ -237,61 +222,23 @@ class ComposeWeatherCard(
         return this != WeatherDisplayMode.COMPARE || data.size >= 2
     }
 
-    private fun ensureLifecycleOwner() {
-        if (!container.isAttachedToWindow) return
-        val root = container.rootView
-        if (root.findViewTreeLifecycleOwner() == null) {
-            root.setViewTreeLifecycleOwner(fallbackLifecycleOwner)
-            fallbackLifecycleRoot = root
-        }
-    }
-
-    private fun releaseFallbackLifecycleOwner() {
-        val root = fallbackLifecycleRoot ?: return
-        if (root.findViewTreeLifecycleOwner() === fallbackLifecycleOwner) {
-            root.setViewTreeLifecycleOwner(null)
-        }
-        fallbackLifecycleRoot = null
-    }
-
     private fun onMain(block: () -> Unit) {
         if (Looper.myLooper() == Looper.getMainLooper()) {
             block()
         } else {
-            container.post(block)
-        }
-    }
-
-    private class CardLifecycleOwner : LifecycleOwner {
-        private val registry = LifecycleRegistry(this).apply {
-            currentState = Lifecycle.State.CREATED
-        }
-
-        override val lifecycle: Lifecycle
-            get() = registry
-
-        fun resume() {
-            if (registry.currentState != Lifecycle.State.RESUMED) {
-                registry.currentState = Lifecycle.State.RESUMED
-            }
-        }
-
-        fun pause() {
-            if (registry.currentState != Lifecycle.State.CREATED) {
-                registry.currentState = Lifecycle.State.CREATED
-            }
+            composeView.post(block)
         }
     }
 }
 
-private data class CardUiState(
+private data class CardUIState(
     val mode: WeatherDisplayMode = WeatherDisplayMode.BASE,
     val data: List<CardUIData> = emptyList(),
     val visible: Boolean = false
 )
 
 @Composable
-private fun ComposeWeatherCardContent(state: CardUiState) {
+private fun ComposeWeatherCardContent(state: CardUIState) {
     if (!state.visible || state.data.isEmpty()) return
 
     Box(

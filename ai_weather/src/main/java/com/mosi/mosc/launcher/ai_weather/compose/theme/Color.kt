@@ -1,4 +1,4 @@
-package com.mosi.mosc.launcher.ai_weather.ui.theme
+package com.mosi.mosc.launcher.ai_weather.compose.theme
 
 import androidx.compose.ui.graphics.Color
 

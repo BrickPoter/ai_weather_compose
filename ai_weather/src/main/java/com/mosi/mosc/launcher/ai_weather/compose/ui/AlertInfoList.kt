@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.mosi.mosc.ai_weather.weather_srv.CardWarnInfo
 import com.mosi.mosc.launcher.ai_weather.compose.preview.LargeCardPreview
 import com.mosi.mosc.launcher.ai_weather.compose.widget.PagerIndicator
-import com.mosi.mosc.launcher.ai_weather.ui.theme.AppTextStyles
+import com.mosi.mosc.launcher.ai_weather.compose.theme.AppTextStyles
 import com.mosi.mosc.launcher.ai_weather.utils.Utils
 
 @Composable

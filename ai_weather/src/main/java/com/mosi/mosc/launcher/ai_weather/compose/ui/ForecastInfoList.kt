@@ -22,8 +22,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mosi.mosc.ai_weather.weather_srv.CardForecastInfo
 import com.mosi.mosc.launcher.ai_weather.compose.preview.LargeCardPreview
-import com.mosi.mosc.launcher.ai_weather.ui.theme.AppTextStyles
-import com.mosi.mosc.launcher.ai_weather.ui.theme.Probability
+import com.mosi.mosc.launcher.ai_weather.compose.theme.AppTextStyles
+import com.mosi.mosc.launcher.ai_weather.compose.theme.Probability
 import com.mosi.mosc.launcher.ai_weather.utils.Utils
 import kotlin.text.replace
 

@@ -43,13 +43,10 @@ class WeatherCardPlugin : ICardPlugin {
 
     private val repository = WeatherRepository()
 
-    /** requestShow 与 createCard 共用同一个实例，宿主拿到的 View 也始终是同一个 container */
+    /** requestShow 与 createCard 共用同一个实例，宿主拿到的 View 也始终是同一个 ComposeView */
     private var weatherCard: ComposeWeatherCard? = null
     private var requestedMode: WeatherDisplayMode? = null
-    /** 上一次已申请过的数据模式（用于判断"数据形态变化后要重新申请"） */
-    private var lastRequestedMode: WeatherDisplayMode? = null
     private var showLatchToken: Runnable? = null
-    private var wasVisible = false
 
     private val mHandle: Handler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
@@ -76,23 +73,42 @@ class WeatherCardPlugin : ICardPlugin {
     }
 
     private fun onWeatherData(uiDataList: List<CardUIData>?) {
+        if (mContent == null || mCardManager == null) {
+            Log.w(TAG, "onCardUIDateResult ignored: plugin is not initialized")
+            return
+        }
         if (uiDataList.isNullOrEmpty()) {
             Log.w(TAG, "数据为空：卡片内容不更新")
-//            Log.w(TAG, "数据为空：释放内容并收起卡片")
-//            repository.update(emptyList())
-//            weatherCard?.onDataChanged()
-//            clearShowLatch()
-//            try {
-//                mCardManager?.requestHide(KEY_CARD_ID)
-//            } catch (e: Exception) {
-//                Log.e(TAG, "requestHide failed", e)
-//            }
             return
         }
 
         repository.update(uiDataList)
-        ensureCard()?.onDataChanged()   // 首次：只更新 dataMode，不 render；已上屏：原地刷新
-        maybeShowCard()
+
+        val mode = repository.getDisplayMode()
+        val card = weatherCard
+        val visible = isCardVisible()
+
+        if (visible && card != null && card.canRefreshInPlace) {
+            if (card.canDisplayInCurrentSlot(mode)) {
+                // 已经显示且槽位尺寸不变：只更新 Compose 状态，不打扰 launcher 重新编排。
+                Log.d(TAG, "card visible, refresh in place: mode=$mode")
+                card.onDataChanged()
+                clearShowLatch()
+            } else {
+                // BASE(1/8) ↔ 整卡(1/4) 等尺寸档位变化时仍要让 launcher 重排槽位，
+                // 宿主会重新 getView，卡片会读取这次最新数据。
+                Log.d(
+                    TAG,
+                    "card visible but slot=${card.viewCardSize} cannot render mode=$mode, requestShow"
+                )
+                card.syncDataMode()
+                requestShowIfNeeded(mode)
+            }
+            return
+        }
+
+        // 未显示（或只有 ICard 实例、还没 getView）：按时序请求 launcher 显示。
+        requestShowIfNeeded(mode)
     }
 
     // ---------------------------------------------------------------- 绑定服务端
@@ -203,12 +219,10 @@ class WeatherCardPlugin : ICardPlugin {
         weatherService = null
         weatherCard?.release()
         weatherCard = null
-        wasVisible = false
         requestedMode = null
         repository.clear()
         mContent = null
         mCardManager = null
-        lastRequestedMode = null
     }
 
     override fun getSupportedCardIds(): List<String> = listOf(KEY_CARD_ID)
@@ -217,6 +231,7 @@ class WeatherCardPlugin : ICardPlugin {
         Log.d(TAG, "createCard cardId=$cardId trigger=$triggerSource")
         val card = ensureCard()
             ?: throw IllegalStateException("WeatherCardPlugin.initialize() not called")
+        card.syncDataMode()
 
         if (triggerSource == TriggerSource.USER) {
             // 用户主动调起 → 要最新数据
@@ -232,8 +247,6 @@ class WeatherCardPlugin : ICardPlugin {
         mHandle.removeMessages(MSG_IDLE_HIDE)
         weatherCard?.release()
         weatherCard = null
-        wasVisible = false
-        lastRequestedMode = null
         clearShowLatch()
     }
 
@@ -246,48 +259,28 @@ class WeatherCardPlugin : ICardPlugin {
         return weatherCard ?: ComposeWeatherCard(ctx, repository).also { weatherCard = it }
     }
 
-    /** 已可见 → 只解锁；不可见 → 同一内容不重复申请，否则 requestShow */
-    private fun maybeShowCard() {
-        val card = weatherCard ?: return
-        val manager = mCardManager ?: return
-        val mode = card.dataMode                       // ★ 用数据期望模式（不再用 currentMode）
-
-        val visible = try {
+    /** 宿主当前是否已经把这张卡放进桌面。 */
+    private fun isCardVisible(): Boolean {
+        val manager = mCardManager ?: return false
+        return try {
             manager.getCardVisibleState(KEY_CARD_ID) == VisibleState.SHOW
         } catch (e: Exception) {
             Log.w(TAG, "getCardVisibleState failed", e)
             false
         }
+    }
 
-        if (visible) {
-            wasVisible = true
-//            clearShowLatch()
-            // ★ 数据形态变了（BASE↔整卡、整卡之间切换）→ 重新 requestShow，让宿主重新编排
-            if (lastRequestedMode != mode) {
-                Log.d(TAG, "mode 变化：$lastRequestedMode -> $mode，重新 requestShow")
-                requestShow(mode)
-            } else {
-                clearShowLatch()
-            }
-            return
-        }
-        if (wasVisible) {                    // 观察到 SHOW → HIDE 跳变，解锁
-            wasVisible = false
-            clearShowLatch()
-        }
-
-//        val mode = card.currentMode
+    /** 同一模式只保持一次未完成的申请，避免 AIDL 连续回调导致重复 requestShow。 */
+    private fun requestShowIfNeeded(mode: WeatherDisplayMode) {
         if (requestedMode == mode) return
         requestShow(mode)
     }
 
     private fun requestShow(mode: WeatherDisplayMode) {
-        val card = ensureCard() ?: return
         val manager = mCardManager ?: return
 
         clearShowLatch()
         requestedMode = mode
-        lastRequestedMode = mode
         try {
             manager.requestShow(
                 BusinessType.WEATHER,
@@ -296,16 +289,19 @@ class WeatherCardPlugin : ICardPlugin {
                     category = "weather",
                     contentSummary = mode.summary,
                     cardSize = mode.cardSize,
-                    supportedSizes = card.getSupportedSizes(),
+                    supportedSizes = ComposeWeatherCard.SUPPORTED_SIZES,
                     source = TriggerSource.RECOMMEND,
                     targetScreen = TargetScreen.DRIVER_SCREEN,
                     reason = mode.showReason,
-                    priority = card.getCardPriority()
+                    priority = mode.priority
                 )
             )
-            Log.d(TAG, "requestShow sent: mode=$mode size=${card.getCardSize()}")
+            Log.d(TAG, "requestShow sent: mode=$mode size=${mode.cardSize}")
         } catch (e: Exception) {
             Log.e(TAG, "requestShow failed", e)
+            requestedMode = null
+            showLatchToken = null
+            return
         }
 
         // 宿主未响应（拒绝/无槽位）时解锁，避免一次失败后不再申请

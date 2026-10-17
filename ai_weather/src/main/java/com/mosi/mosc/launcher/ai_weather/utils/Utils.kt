@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.compose.ui.graphics.Color
 import com.mosi.mosc.launcher.ai_weather.R
 import com.mosi.mosc.launcher.ai_weather.enums.WeatherType
-import com.mosi.mosc.launcher.ai_weather.ui.theme.AlertBg
-import com.mosi.mosc.launcher.ai_weather.ui.theme.AlertOrangeBg
-import com.mosi.mosc.launcher.ai_weather.ui.theme.AlertRedBg
+import com.mosi.mosc.launcher.ai_weather.compose.theme.AlertBg
+import com.mosi.mosc.launcher.ai_weather.compose.theme.AlertOrangeBg
+import com.mosi.mosc.launcher.ai_weather.compose.theme.AlertRedBg
 
 object Utils {
     fun dp2px(context: Context, dp: Int): Int {
