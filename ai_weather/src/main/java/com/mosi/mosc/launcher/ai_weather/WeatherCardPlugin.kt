@@ -27,7 +27,7 @@ class WeatherCardPlugin : ICardPlugin {
 
     companion object {
         const val TAG = "WeatherCardPlugin"
-        const val KEY_CARD_ID = WeatherCard.KEY_CARD_ID
+        const val KEY_CARD_ID = ComposeWeatherCard.KEY_CARD_ID
 
         private const val MSG_IDLE_HIDE = 1
         private const val IDLE_HIDE_DELAY_MS = 20_000L      // 用户调起后无操作自动收起
@@ -44,7 +44,7 @@ class WeatherCardPlugin : ICardPlugin {
     private val repository = WeatherRepository()
 
     /** requestShow 与 createCard 共用同一个实例，宿主拿到的 View 也始终是同一个 container */
-    private var weatherCard: WeatherCard? = null
+    private var weatherCard: ComposeWeatherCard? = null
     private var requestedMode: WeatherDisplayMode? = null
     /** 上一次已申请过的数据模式（用于判断"数据形态变化后要重新申请"） */
     private var lastRequestedMode: WeatherDisplayMode? = null
@@ -241,9 +241,9 @@ class WeatherCardPlugin : ICardPlugin {
 
     // ---------------------------------------------------------------- 内部实现
 
-    private fun ensureCard(): WeatherCard? {
+    private fun ensureCard(): ComposeWeatherCard? {
         val ctx = mContent ?: return null
-        return weatherCard ?: WeatherCard(ctx, repository).also { weatherCard = it }
+        return weatherCard ?: ComposeWeatherCard(ctx, repository).also { weatherCard = it }
     }
 
     /** 已可见 → 只解锁；不可见 → 同一内容不重复申请，否则 requestShow */
