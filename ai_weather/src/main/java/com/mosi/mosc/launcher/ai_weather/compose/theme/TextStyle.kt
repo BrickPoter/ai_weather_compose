@@ -32,13 +32,22 @@ object AppTextStyles {
     val ContentTemp = TextStyle(
         fontFamily = DinBegFont,
         fontSize = 40.sp,
-        lineHeight = 60.sp
+        lineHeight = 60.sp,
+        lineHeightStyle = LineHeightStyle(
+            alignment = LineHeightStyle.Alignment.Center,  // 行内垂直居中
+            trim = LineHeightStyle.Trim.None
+        )
     )
 
     // 其他文字
     val ContentChinese_34 = TextStyle(
+        fontFamily = FontFamily.Default,
         fontSize = 34.sp,
-        lineHeight = 50.sp
+        lineHeight = 50.sp,
+        lineHeightStyle = LineHeightStyle(
+            alignment = LineHeightStyle.Alignment.Center,  // 行内垂直居中
+            trim = LineHeightStyle.Trim.None
+        )
     )
 
     // 其他文字
@@ -46,7 +55,7 @@ object AppTextStyles {
         fontSize = 36.sp,
         lineHeight = 50.sp,
         lineHeightStyle = LineHeightStyle(
-            alignment = LineHeightStyle.Alignment.Center,  // 关键：行内垂直居中
+            alignment = LineHeightStyle.Alignment.Center,  // 行内垂直居中
             trim = LineHeightStyle.Trim.None
         )
     )
