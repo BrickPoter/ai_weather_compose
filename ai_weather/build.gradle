@@ -37,6 +37,7 @@ dependencies {
     implementation libs.androidx.appcompat
     implementation libs.androidx.core.ktx
     implementation libs.material
+    implementation libs.kotlinx.coroutines.core
 
     // ---- Compose ----
     implementation platform(libs.androidx.compose.bom)      // ✅ BOM 必须放最前

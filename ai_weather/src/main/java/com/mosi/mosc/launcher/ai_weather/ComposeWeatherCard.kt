@@ -1,257 +1,220 @@
 package com.mosi.mosc.launcher.ai_weather
 
 import android.content.Context
+import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
-import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
-import androidx.core.view.doOnLayout
 import com.fawvw.hmi.ailauncher.pluginlib.BusinessType
 import com.fawvw.hmi.ailauncher.pluginlib.CardPriority
 import com.fawvw.hmi.ailauncher.pluginlib.CardSize
 import com.fawvw.hmi.ailauncher.pluginlib.ICard
 import com.fawvw.hmi.ailauncher.pluginlib.VisibleState
-import com.mosi.mosc.ai_weather.weather_srv.CardUIData
 import com.mosi.mosc.launcher.ai_weather.compose.cardview.BaseCarLargeView
 import com.mosi.mosc.launcher.ai_weather.compose.cardview.BaseCardView
 import com.mosi.mosc.launcher.ai_weather.compose.cardview.CompareCardView
 import com.mosi.mosc.launcher.ai_weather.compose.cardview.ExpandCardView
 import com.mosi.mosc.launcher.ai_weather.compose.cardview.ForecastCardView
 import com.mosi.mosc.launcher.ai_weather.compose.cardview.RealtimeCardView
-import com.mosi.mosc.launcher.ai_weather.enums.WeatherDisplayMode
+import com.mosi.mosc.launcher.ai_weather.enums.WeatherCardType
+import kotlinx.coroutines.flow.MutableStateFlow
 
 /**
- * 宿主拿到的始终是同一个 [composeView]，卡片模式、数据和可见性都通过 Compose 状态原地更新，
- * 不再像 View 版本那样创建/移除具体的 WeatherCardView。
+ * 天气卡片的 ICard 适配层。
+ *
+ * 职责仅限于：
+ * 1. 向宿主提供稳定的 View；
+ * 2. 记录宿主传入的槽位尺寸；
+ * 3. 按 WeatherSnapshot + CardSize 选择 Compose 内容；
+ * 4. 在 destroyCard 时释放 Compose composition。
+ *
+ * AIDL 绑定、requestShow 和自动收起都不在这里处理。
  */
 class ComposeWeatherCard(
     context: Context,
     private val repository: WeatherRepository,
-    private val cardId: String = KEY_CARD_ID
+    private val cardId: String = KEY_CARD_ID,
+    private val onViewReady: () -> Unit = {}
 ) : ICard {
 
     companion object {
         const val TAG = "ComposeWeatherCard"
-        val SUPPORTED_SIZES = listOf(CardSize.ONE_FOUR, CardSize.ONE_EIGHT)
-        const val KEY_CARD_ID = "composeWeather_1"
+        const val KEY_CARD_ID = "weather_1"
     }
+
+    private val mainHandler = Handler(Looper.getMainLooper())
+    private val slotSize = MutableStateFlow<CardSize?>(null)
+    private val container = FrameLayout(context)
     private val composeView = ComposeView(context)
-    private val uiState = mutableStateOf(CardUIState())
 
-    /** 宿主最后一次传入的槽位尺寸；null = 宿主还没取过 View。 */
-    @Volatile
-    private var hostSize: CardSize? = null
-
-    /** 宿主实际用来承载卡片的槽位尺寸；null = getView 还没调用。 */
-    @Volatile
-    var viewCardSize: CardSize? = null
-        private set
-
-    /** 内容是否已释放（HIDE / release 后为 true，getView / SHOW 后恢复）。 */
-    @Volatile
-    private var contentReleased = true
-
-    /** 数据期望的展示模式，供 requestShow / getCardSize 使用。 */
-    @Volatile
-    var dataMode: WeatherDisplayMode = repository.getDisplayMode()
-        private set
-
-    /** 当前实际渲染的模式（受槽位尺寸影响，可能与 dataMode 不同）。 */
-    @Volatile
-    var currentMode: WeatherDisplayMode = WeatherDisplayMode.BASE
-        private set
-
-    /** 当前有可见的 Compose 内容，可以直接原地刷新。 */
-    val canRefreshInPlace: Boolean
-        get() = !contentReleased && viewCardSize != null
+    private var compositionInstalled = false
 
     init {
-        Log.d(TAG, "ComposeWeatherCard init")
-
-        composeView.layoutParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT
+        container.addView(
+            composeView,
+            FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+            )
         )
-        composeView.visibility = View.GONE
-        composeView.setContent {
-            ComposeWeatherCardContent(uiState.value)
-        }
+        installComposition()
     }
 
-    override fun getCardId() = cardId
+    /** 宿主当前是否把这张卡的 View 挂到了窗口上。 */
+    val isAttached: Boolean
+        get() = container.isAttachedToWindow
 
-    override fun getSupportedSizes(): List<CardSize> = SUPPORTED_SIZES
+    /** 宿主最近一次传给 getView() 的槽位尺寸。 */
+    val currentSlotSize: CardSize?
+        get() = slotSize.value
+
+    override fun getCardId(): String = cardId
+
+    override fun getSupportedSizes(): List<CardSize> =
+        repository.currentSnapshot?.type?.supportedSizes
+            ?: WeatherCardType.BASE.supportedSizes
 
     override fun getView(cardSize: CardSize): View {
-        Log.d(TAG, "getView() Called, cardSize = $cardSize")
-        hostSize = cardSize
-        viewCardSize = cardSize
-        contentReleased = false
-        render(repository.currentData)
-
-        composeView.doOnLayout { v ->
-            val dm = v.resources.displayMetrics
-            Log.d(
-                TAG,
-                "cardSize=$cardSize mode=$currentMode " +
-                        "card=${v.width}x${v.height}px " +
-                        "dp=${v.width / dm.density}x${v.height / dm.density} " +
-                        "density=${dm.density} dpi=${dm.densityDpi} " +
-                        "screen=${dm.widthPixels}x${dm.heightPixels}px"
-            )
-        }
-        return composeView
+        slotSize.value = cardSize
+        installComposition()
+        composeView.visibility = View.VISIBLE
+        composeView.requestLayout()
+        container.requestLayout()
+        onViewReady()
+        return container
     }
 
-    override fun getCardSize(): CardSize = dataMode.cardSize
+    override fun getCardSize(): CardSize =
+        currentSlotSize
+            ?: repository.currentSnapshot?.type?.preferredSize
+            ?: CardSize.ONE_EIGHT
 
-    override fun getCardPriority(): CardPriority = dataMode.priority
+    override fun getCardPriority(): CardPriority =
+        repository.currentSnapshot?.type?.priority ?: CardPriority.MEDIUM
 
     override fun getBusinessType(): BusinessType = BusinessType.WEATHER
 
+    /**
+     * 宿主当前不会调用 onRefresh()，这里只重新排版当前快照，不主动请求服务端。
+     * 新数据统一由 WeatherRepository.snapshot 推送到 Compose。
+     */
     override fun onRefresh() {
-        // 当前 launcher 不回调 onVisibleStateChange，getView 后即视为有可刷新内容。
-        if (contentReleased || hostSize == null) return
-        repository.requestRefresh()
-        render(repository.currentData)
-    }
-
-    override fun onVisibleStateChange(state: VisibleState) {
-        when (state) {
-            VisibleState.SHOW -> {
-                contentReleased = false
-                onMain {
-                    renderNow(repository.currentData)
-                }
-            }
-
-            VisibleState.HIDE -> {
-                contentReleased = true
-                onMain {
-                    // 与 WeatherCard.releaseContent() 对齐：隐藏时释放 Compose 内容资源，
-                    // 但保留 container 和 ComposeView，下一次 SHOW 直接重新组合。
-                    composeView.disposeComposition()
-                    composeView.visibility = View.GONE
-                    uiState.value = uiState.value.copy(visible = false)
-                }
-            }
-        }
-    }
-
-    /** 宿主 destroyCard 时调用。 */
-    fun release() {
-        contentReleased = true
-        hostSize = null
-        viewCardSize = null
-        onMain {
-            composeView.disposeComposition()
-            composeView.visibility = View.GONE
-            uiState.value = CardUIState()
-        }
-    }
-
-    /** 数据更新：原地刷新。 */
-    fun onDataChanged() {
-        syncDataMode()
-        Log.d(TAG, "onDataChanged Called, dataMode=$dataMode, attached=${hostSize != null}")
-        if (hostSize != null) {
-            render(repository.currentData)
-            composeView.requestLayout()
-        }
-    }
-
-    /** 只同步数据模式，不触发 Compose 内容切换（等待 launcher 重排槽位时使用）。 */
-    fun syncDataMode() {
-        dataMode = repository.getDisplayMode()
+        composeView.requestLayout()
+        container.requestLayout()
     }
 
     /**
-     * 当前槽位能否直接承载 [mode]。
-     *
-     * BASE 在 ONE_FOUR 槽位下会自动渲染成 BASE_LARGE，因此这两种组合不需要重新 requestShow。
+     * 显隐由宿主调度。HIDE 时不释放 composition，避免宿主再次 SHOW 时需要重建整棵 UI；
+     * 最终资源释放放在 destroyCard() -> release()。
      */
-    fun canDisplayInCurrentSlot(mode: WeatherDisplayMode): Boolean {
-        val currentSize = viewCardSize ?: return false
-        val desiredSize = if (mode == WeatherDisplayMode.BASE && currentSize == CardSize.ONE_FOUR) {
-            CardSize.ONE_FOUR
-        } else {
-            mode.cardSize
-        }
-        return desiredSize == currentSize
-    }
-
-    private fun render(data: List<CardUIData>?) {
-        onMain { renderNow(data) }
-    }
-
-    private fun renderNow(data: List<CardUIData>?) {
-        dataMode = repository.getDisplayMode()
-
-        var displayMode = dataMode
-        if (displayMode == WeatherDisplayMode.BASE && hostSize == CardSize.ONE_FOUR) {
-            displayMode = WeatherDisplayMode.BASE_LARGE
-        }
-
-        currentMode = displayMode
-        Log.d(TAG, "render dataMode=$dataMode, renderMode=$displayMode, hostSize=$hostSize")
-
-        val renderableData = data.orEmpty().toList()
-        val canRender = renderableData.isNotEmpty() && displayMode.canRender(renderableData)
-        val showContent = !contentReleased && canRender
-        uiState.value = CardUIState(
-            mode = displayMode,
-            data = if (canRender) renderableData else emptyList(),
-            visible = showContent
-        )
-        composeView.visibility = if (showContent) View.VISIBLE else View.GONE
-
-        if (showContent) {
-            // GONE -> VISIBLE 时重新触发 ComposeView.onMeasure，确保释放过的 composition 被重建。
-            composeView.requestLayout()
+    override fun onVisibleStateChange(state: VisibleState) {
+        if (state == VisibleState.SHOW) {
+            installComposition()
+            composeView.visibility = View.VISIBLE
+            onRefresh()
         }
     }
 
-    private fun WeatherDisplayMode.canRender(data: List<CardUIData>): Boolean {
-        return this != WeatherDisplayMode.COMPARE || data.size >= 2
+    /** 当前槽位能否直接承载这份快照。 */
+    fun canRender(snapshot: WeatherSnapshot?): Boolean {
+        val currentSize = currentSlotSize ?: return false
+        return snapshot != null && currentSize in snapshot.type.supportedSizes
     }
 
-    private fun onMain(block: () -> Unit) {
+    /**
+     * ICard 没有 onDestroy 回调，宿主销毁卡片时由 WeatherCardPlugin.destroyCard() 调用。
+     */
+    fun onDestroy() {
+        runOnMain {
+            slotSize.value = null
+            if (compositionInstalled) {
+                composeView.disposeComposition()
+                compositionInstalled = false
+            }
+            composeView.visibility = View.GONE
+        }
+    }
+
+    private fun installComposition() {
+        if (compositionInstalled) return
+        composeView.setContent {
+            val snapshot by repository.snapshot.collectAsState()
+            val size by slotSize.collectAsState()
+            WeatherCardContent(latestSnapshot = snapshot, slotSize = size)
+        }
+        compositionInstalled = true
+    }
+
+    private fun runOnMain(block: () -> Unit) {
         if (Looper.myLooper() == Looper.getMainLooper()) {
             block()
         } else {
-            composeView.post(block)
+            mainHandler.post(block)
         }
     }
 }
 
-private data class CardUIState(
-    val mode: WeatherDisplayMode = WeatherDisplayMode.BASE,
-    val data: List<CardUIData> = emptyList(),
-    val visible: Boolean = false
-)
-
 @Composable
-private fun ComposeWeatherCardContent(state: CardUIState) {
-    if (!state.visible || state.data.isEmpty()) return
+private fun WeatherCardContent(
+    latestSnapshot: WeatherSnapshot?,
+    slotSize: CardSize?
+) {
+    var displayedSnapshot by remember { mutableStateOf<WeatherSnapshot?>(null) }
+    val canDisplayLatest = latestSnapshot != null &&
+        (slotSize == null || slotSize in latestSnapshot.type.supportedSizes)
 
+    LaunchedEffect(latestSnapshot, slotSize) {
+        when {
+            latestSnapshot == null -> displayedSnapshot = null
+            canDisplayLatest -> displayedSnapshot = latestSnapshot
+        }
+    }
+
+    // 类型变化需要宿主重新编排到 1/4 时，先保留旧内容，避免在 1/8 槽位里短暂渲染大卡。
+    val snapshot = if (canDisplayLatest) latestSnapshot else displayedSnapshot
+    if (snapshot == null || snapshot.items.isEmpty()) return
+
+    val renderSize = slotSize ?: snapshot.type.preferredSize
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.TopStart
     ) {
-        when (state.mode) {
-            WeatherDisplayMode.BASE -> BaseCardView(cardUIDataList = state.data)
-            WeatherDisplayMode.BASE_LARGE -> BaseCarLargeView(cardUIDataList = state.data)
-            WeatherDisplayMode.COMPARE -> CompareCardView(cardUIDataList = state.data)
-            WeatherDisplayMode.EXPAND -> ExpandCardView(cardUIDataList = state.data)
-            WeatherDisplayMode.FORECAST -> ForecastCardView(cardUIDataList = state.data)
-            WeatherDisplayMode.REALTIME -> RealtimeCardView(cardUIDataList = state.data)
+        when (snapshot.type) {
+            WeatherCardType.BASE -> {
+                if (renderSize == CardSize.ONE_FOUR) {
+                    BaseCarLargeView(cardUIDataList = snapshot.items)
+                } else {
+                    BaseCardView(cardUIDataList = snapshot.items)
+                }
+            }
+
+            WeatherCardType.COMPARE -> {
+                CompareCardView(cardUIDataList = snapshot.items)
+            }
+
+            WeatherCardType.EXPAND -> {
+                ExpandCardView(cardUIDataList = snapshot.items)
+            }
+
+            WeatherCardType.FORECAST -> {
+                ForecastCardView(cardUIDataList = snapshot.items)
+            }
+
+            WeatherCardType.REALTIME -> {
+                RealtimeCardView(cardUIDataList = snapshot.items)
+            }
         }
     }
 }

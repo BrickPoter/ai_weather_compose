@@ -1,51 +1,56 @@
 package com.mosi.mosc.launcher.ai_weather
 
 import com.mosi.mosc.ai_weather.weather_srv.CardUIData
-import com.mosi.mosc.launcher.ai_weather.enums.WeatherDisplayMode
+import com.mosi.mosc.launcher.ai_weather.enums.WeatherCardType
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
+/**
+ * 服务端最近一次下发的天气快照。
+ *
+ * items 与 type 始终一起更新，避免 UI 在两次读取之间看到“新数据 + 旧类型”的中间状态。
+ */
+data class WeatherSnapshot(
+    val items: List<CardUIData>,
+    val type: WeatherCardType,
+    val updatedAt: Long = System.currentTimeMillis()
+) {
+    val preferredSize get() = type.preferredSize
+    val supportedSizes get() = type.supportedSizes
+}
+
+/**
+ * 插件侧数据仓库。
+ *
+ * 数据只由 WeatherCardPlugin 在 AIDL onCardUIDateResult() 回调中写入；
+ * UI 通过 snapshot 的 StateFlow 订阅，不再直接读取可变的 List 字段。
+ */
 class WeatherRepository {
-    // weather_server 解析的数据
-    private var data: List<CardUIData>? = null
-    private var refreshAction: (() -> Unit)? = null
+    private val _snapshot = MutableStateFlow<WeatherSnapshot?>(null)
+    val snapshot: StateFlow<WeatherSnapshot?> = _snapshot.asStateFlow()
 
-    val currentData: List<CardUIData>?
-        get() = data
+    val currentSnapshot: WeatherSnapshot?
+        get() = _snapshot.value
 
-    fun update(newData: List<CardUIData>) {
-        data = newData
+    /**
+     * 保存最近一次解析结果并发布新快照。
+     *
+     * 空列表视为无效回调，不覆盖上一份可用快照。
+     */
+    fun update(newData: List<CardUIData>): WeatherSnapshot? {
+        if (newData.isEmpty()) return null
+
+        val items = newData.toList()
+        val snapshot = WeatherSnapshot(
+            items = items,
+            type = WeatherCardType.from(items)
+        )
+        _snapshot.value = snapshot
+        return snapshot
     }
 
-    fun setRefreshAction(action: () -> Unit) {
-        refreshAction = action
-    }
-
-    fun requestRefresh() {
-        refreshAction?.invoke()
-    }
-
-    /** 插件整体反注册时用：数据 + 刷新回调一起清掉 */
     fun clear() {
-        data = null
-        refreshAction = null
-    }
-
-    fun getDisplayMode(): WeatherDisplayMode {
-        if (data.isNullOrEmpty()) return WeatherDisplayMode.BASE
-
-        // 天气对比卡片
-        if (data!!.size > 1) return WeatherDisplayMode.COMPARE
-
-        // 其他卡片
-        val cardUIData = data!![0]
-        val granularity = cardUIData.granularity
-        val forecastInfo = cardUIData.forecastInfo
-        val extraInfo = cardUIData.extraInfo
-
-        if (granularity.lowercase().replace("-","").replace("_","") == "multiday") {
-            return WeatherDisplayMode.FORECAST
-        }
-        if (forecastInfo.isNotEmpty()) return WeatherDisplayMode.REALTIME
-        if (extraInfo.size > 2) return WeatherDisplayMode.EXPAND
-        return WeatherDisplayMode.BASE
+        _snapshot.value = null
     }
 }
