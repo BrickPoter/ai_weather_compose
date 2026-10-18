@@ -1,6 +1,5 @@
 *.iml
 /.idea
-/uidemo
 .gradle
 /local.properties
 /.idea/caches
