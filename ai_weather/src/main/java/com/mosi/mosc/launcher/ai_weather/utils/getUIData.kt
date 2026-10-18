@@ -13,7 +13,7 @@ fun getUIData(mode: String): List<CardUIData> {
         )
         "COMPARE" -> listOf(
             CardUIData(baseInfo1, extraInfo1, "day", emptyForecastInfo, emptyWarnInfo),
-            CardUIData(baseInfo2, extraInfo1, "day", emptyForecastInfo, emptyWarnInfo)
+            CardUIData(baseInfo2, extraInfo2, "day", emptyForecastInfo, emptyWarnInfo)
         )
         "EXPAND" -> listOf(
             CardUIData(baseInfo1, extraInfo2, "day", emptyForecastInfo, emptyWarnInfo)
@@ -55,8 +55,8 @@ val baseInfo2 = CardBaseInfo(
     currentTemp = null,
     highTemp = "29",
     lowTemp = "23",
-    tempInfo = "多云",
-    icon = "多云",
+    tempInfo = "阵雨",
+    icon = "阵雨",
     showTime = "今日"
 )
 
@@ -72,18 +72,17 @@ val warnInfo2 = listOf(
     CardWarnInfo("","红色","这是一条红色预警信息")
 )
 
-val emptyExtraInfo = emptyList<CardExtraInfo>()
 val extraInfo1 = listOf(
     CardExtraInfo("紫外线", "紫外线中等"),
     CardExtraInfo("穿衣指数", "薄长袖"),
 )
 
 val extraInfo2 = listOf(
+    CardExtraInfo("降水概率", "50%"),
+    CardExtraInfo("风力风向", "阵风6级"),
     CardExtraInfo("日出", "6:00"),
     CardExtraInfo("日落", "20:00"),
     CardExtraInfo("穿衣指数", "薄长袖"),
-    CardExtraInfo("降水概率", "50%"),
-    CardExtraInfo("风力风向", "阵风6级"),
     CardExtraInfo("紫外线指数", "非常高"),
     CardExtraInfo("空气质量", "良好")
 )

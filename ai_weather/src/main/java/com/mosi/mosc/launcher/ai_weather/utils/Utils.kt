@@ -1,6 +1,5 @@
 package com.mosi.mosc.launcher.ai_weather.utils
 
-import android.content.Context
 import androidx.compose.ui.graphics.Color
 import com.mosi.mosc.launcher.ai_weather.R
 import com.mosi.mosc.launcher.ai_weather.enums.WeatherType
@@ -9,11 +8,6 @@ import com.mosi.mosc.launcher.ai_weather.compose.theme.AlertOrangeBg
 import com.mosi.mosc.launcher.ai_weather.compose.theme.AlertRedBg
 
 object Utils {
-    fun dp2px(context: Context, dp: Int): Int {
-        val f = dp * context.resources.displayMetrics.density
-        val px =  if (f >= 0) f + 0.5F else f - 0.5F
-        return px.toInt()
-    }
 
     fun getAlertImageResourceId(str: String): Int {
         return when(str) {
@@ -66,16 +60,7 @@ object Utils {
         }
     }
 
-    fun getTopBackgroundResourceId(weatherType: WeatherType) : Int {
-        return when(weatherType) {
-            WeatherType.CLEAR -> R.drawable.clear_half_top
-            WeatherType.SNOW -> R.drawable.snow_half_top
-            WeatherType.SHADE, WeatherType.RAIN -> R.drawable.rain_shade_half_top
-            WeatherType.DUST -> R.drawable.dust_half_top
-        }
-    }
-
-    fun getBottomBackgroundResourceId(weatherType: WeatherType) : Int {
+    fun getTargetBackgroundResourceId(weatherType: WeatherType) : Int {
         return when(weatherType) {
             WeatherType.CLEAR -> R.drawable.clear_half_bottom
             WeatherType.SNOW -> R.drawable.snow_half_bottom

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -31,7 +32,7 @@ fun CompareCardView(
     val baselineData = cardUIDataList[0]
     val baselineBaseInfo = baselineData.baseInfo
     val baselineExtraInfo = baselineData.extraInfo
-    val baselineBgImageId = Utils.getTopBackgroundResourceId(
+    val baselineBgImageId = Utils.getFullCardBackgroundResourceId(
         Utils.getWeatherType(baselineBaseInfo.icon)
     )
 
@@ -39,7 +40,7 @@ fun CompareCardView(
     val targetData = cardUIDataList[1]
     val targetBaseInfo = targetData.baseInfo
     val targetExtraInfo = targetData.extraInfo
-    val targetBgImageId = Utils.getBottomBackgroundResourceId(
+    val targetBgImageId = Utils.getTargetBackgroundResourceId(
         Utils.getWeatherType(targetBaseInfo.icon)
     )
 
@@ -50,16 +51,15 @@ fun CompareCardView(
         Image(
             painter = painterResource(baselineBgImageId),
             contentDescription = "${baselineBaseInfo.icon}",
-            modifier = Modifier.size(730.dp, 532.dp),
+            modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
         Image(
             painter = painterResource(targetBgImageId),
             contentDescription = "${targetBaseInfo.icon}",
             modifier = Modifier
-                .padding(top = 532.dp)
-                .size(730.dp, 532.dp),
-            contentScale = ContentScale.Crop
+                .align(Alignment.BottomCenter)
+                .size(730.dp, 500.dp),
         )
 
         // 基准天气布局
