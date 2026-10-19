@@ -167,7 +167,7 @@ class WeatherCardPlugin : ICardPlugin {
         cardManager: ICardManager,
         lifecycleOwner: LifecycleOwner
     ) {
-        Log.d(TAG, "initialize: composeVersion 0.0.1")
+        Log.d(TAG, "initialize: composeVersion 0.0.2")
         Log.d(TAG, "ctx=${context.javaClass.simpleName}")
         hostContext = context
 

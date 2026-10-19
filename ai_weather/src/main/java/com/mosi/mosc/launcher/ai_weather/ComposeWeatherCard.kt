@@ -5,7 +5,6 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.widget.FrameLayout
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -56,26 +55,18 @@ class ComposeWeatherCard(
 
     private val mainHandler = Handler(Looper.getMainLooper())
     private val slotSize = MutableStateFlow<CardSize?>(null)
-    private val container = FrameLayout(context)
     private val composeView = ComposeView(context)
 
     private var compositionInstalled = false
 
     init {
         Log.d(TAG, "ComposeWeatherCard init")
-        container.addView(
-            composeView,
-            FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.MATCH_PARENT
-            )
-        )
         installComposition()
     }
 
     /** 宿主当前是否把这张卡的 View 挂到了窗口上。 */
     val isAttached: Boolean
-        get() = container.isAttachedToWindow
+        get() = composeView.isAttachedToWindow
 
     /** 宿主最近一次传给 getView() 的槽位尺寸。 */
     val currentSlotSize: CardSize?
@@ -93,9 +84,8 @@ class ComposeWeatherCard(
         installComposition()
         composeView.visibility = View.VISIBLE
         composeView.requestLayout()
-        container.requestLayout()
         onViewReady()
-        return container
+        return composeView
     }
 
     override fun getCardSize(): CardSize =
@@ -114,7 +104,6 @@ class ComposeWeatherCard(
      */
     override fun onRefresh() {
         composeView.requestLayout()
-        container.requestLayout()
     }
 
     /**
