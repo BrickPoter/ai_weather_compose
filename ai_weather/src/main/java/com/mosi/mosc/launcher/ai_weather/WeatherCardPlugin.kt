@@ -61,6 +61,7 @@ class WeatherCardPlugin : ICardPlugin {
 
     private val weatherCallback = object : IAIDLWeatherCallback.Stub() {
         override fun onCardUIDateResult(uiDataList: List<CardUIData>?) {
+            Log.d(TAG, "uiDataList: size=${uiDataList?.size}, data = $uiDataList")
             mainHandler.post { onWeatherData(uiDataList) }
         }
     }
@@ -166,8 +167,17 @@ class WeatherCardPlugin : ICardPlugin {
         cardManager: ICardManager,
         lifecycleOwner: LifecycleOwner
     ) {
-        Log.d(TAG, "initialize")
+        Log.d(TAG, "initialize: composeVersion 0.0.1")
+        Log.d(TAG, "ctx=${context.javaClass.simpleName}")
         hostContext = context
+
+        // 日志打印：获取屏幕信息
+        val dm = context.resources.displayMetrics
+        Log.i(TAG, "screen=${dm.widthPixels}x${dm.heightPixels}px " +
+                "density=${dm.density} dpi=${dm.densityDpi} " +
+                "screenDp=${context.resources.configuration.screenWidthDp}x" +
+                "${context.resources.configuration.screenHeightDp}")
+
         this.cardManager = cardManager
         retryCount = 0
         bindAidlService()

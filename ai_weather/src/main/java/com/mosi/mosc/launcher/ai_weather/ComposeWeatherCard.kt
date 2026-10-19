@@ -3,6 +3,7 @@ package com.mosi.mosc.launcher.ai_weather
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import androidx.compose.foundation.layout.Box
@@ -34,13 +35,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 /**
  * 天气卡片的 ICard 适配层。
  *
- * 职责仅限于：
+ * 职责：
  * 1. 向宿主提供稳定的 View；
  * 2. 记录宿主传入的槽位尺寸；
  * 3. 按 WeatherSnapshot + CardSize 选择 Compose 内容；
  * 4. 在 destroyCard 时释放 Compose composition。
  *
- * AIDL 绑定、requestShow 和自动收起都不在这里处理。
  */
 class ComposeWeatherCard(
     context: Context,
@@ -62,6 +62,7 @@ class ComposeWeatherCard(
     private var compositionInstalled = false
 
     init {
+        Log.d(TAG, "ComposeWeatherCard init")
         container.addView(
             composeView,
             FrameLayout.LayoutParams(
@@ -87,6 +88,7 @@ class ComposeWeatherCard(
             ?: WeatherCardType.BASE.supportedSizes
 
     override fun getView(cardSize: CardSize): View {
+        Log.d(TAG, "getView() Called, cardSize = $cardSize")
         slotSize.value = cardSize
         installComposition()
         composeView.visibility = View.VISIBLE
